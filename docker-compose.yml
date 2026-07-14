@@ -1,0 +1,17 @@
+networks:
+  go_api:
+
+services:
+
+  go:
+    container_name: go_container
+    build:
+      context: './app/'
+    ports:
+      - "8071:8071"
+    volumes:
+      - ./app:/app
+      - ./app/logs:/app/logs
+    networks:
+      - go_api
+
