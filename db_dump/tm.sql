@@ -1,0 +1,803 @@
+CREATE TABLE "user" (
+    login       VARCHAR(50)  NOT NULL,
+    pwd         VARCHAR(100)  NOT NULL,
+    nom         VARCHAR(50),
+    prenom      VARCHAR(50),
+    email       VARCHAR(50),
+    telephone   VARCHAR(10),
+    droitadmin  BOOLEAN,
+    colorbg     VARCHAR(20)  NOT NULL DEFAULT '0',
+    colormn     VARCHAR(20)  NOT NULL DEFAULT '0',
+    colorh      VARCHAR(20)  NOT NULL DEFAULT '0',
+    CONSTRAINT user_pk PRIMARY KEY (login)
+);
+INSERT INTO public."user" (login,pwd,nom,prenom,email,telephone,droitadmin,colorbg,colormn,colorh) VALUES
+	 ('adminAb','21232f297a57a5a743894a0e4a801fc3','admin','administrateur','administrateur@gmail.com','0000000000',false,'0','0','0'),
+	 ('Annette','ff6598a5459cf052ee90514b05781d87','Robez-Preux','Anne','annerobez@gmail.com','06 18 80 4',false,'0','0','0'),
+	 ('artofdisco','7cc7ecab8f7ab0e62cea7c171650b254','Faham','Yannick','yannick.faham@gmail.com','0909090900',false,'0','0','0'),
+	 ('CS','8d7e99c73cd5a10adaaf4c9f9a520368','Visiteur','New','New@gmail.com','0000000000',false,'0','0','0'),
+	 ('ejpgsbdhusq','d41d8cd98f00b204e9800998ecf8427e','ejpgsbdhusq','ejpgsbdhusq','prwtuh@tgteka.com','6436200184',false,'0','0','0'),
+	 ('gras','a82e764a09d728bcba36c559ba2c537a','Gras','Dany','dany.gras@feuille.com','0123456987',false,'0','0','0'),
+	 ('griss','a43a2a73dedfe7951368ffabf1b86e57','rolts','uidgfzi','rolts.griss@gmail.com','aaaaaaaaaa',false,'#62F392','0','0'),
+	 ('ingesup','cf1636fb1da5571d56cfeb9a52ff8183','ingesup','ingesup','ingesup@gmail.com','0000000',false,'0','0','0'),
+	 ('jul','b0169350cd35566c47ba83c6ec1d6f82','Nguyen','Julien','julien.nguye34@gmail.com','0000000000',false,'#C5C2C2','0','0'),
+	 ('l0rent','ab4f63f9ac65152575886860dde480a1','de nil','laurent','laurent.denil@gmail.com','0620144983',false,'0','0','0');
+INSERT INTO public."user" (login,pwd,nom,prenom,email,telephone,droitadmin,colorbg,colormn,colorh) VALUES
+	 ('ledasoft','34512fa0624e1a8dce4597f8ab382e2d','benouatas','adel','ledalog@gmail.com','+213661735',false,'0','0','0'),
+	 ('letesteur','098f6bcd4621d373cade4e832627b4f6','letesteur','letesteur','letesteur@live.fr','0147472572',false,'0','0','0'),
+	 ('makelifebetter','b0169350cd35566c47ba83c6ec1d6f82','Nguyen','Alexandre','alex987698@gmail.com','0000000000',true,'#C5C2C2','#B9D9FA','0'),
+	 ('nadia89','b7b531314304a0c2ce931e03b5e0decc','alaoui','nadia','alaoui.nadia1@gmail.com','0678654356',false,'0','0','0'),
+	 ('pilote','3fb7a4932ec0c776f31e6464eb01d1f3','etolip','etolip','etolp@gmail.com','0602050408',false,'0','0','0'),
+	 ('poumi','436a799947b9fee6d2e0b7e4b4ab74f8','poumi','Marc','poumi@msn.com','1234567890',false,'0','0','0'),
+	 ('R R','546a9a80eb981c7f0aabcaeb34d9514e','alexandre nguyen','Alexandre','alex987698@gmail.com','0617601511',false,'0','0','0'),
+	 ('silver','97f014516561ef487ec368d6158eb3f4','Dumas','Silverio','silverio.martins@free.fr','0618804377',true,'0','0','0'),
+	 ('test','098f6bcd4621d373cade4e832627b4f6','testeur','testeur','alex987698@gmail.com','00',false,'#A3F4F7','#F472C5','0'),
+	 ('test1','df6d2338b2b8fce1ec2f6dda0a630eb0','test','test','gato84b@gmail.com','jjhhohop',false,'0','0','0');
+INSERT INTO public."user" (login,pwd,nom,prenom,email,telephone,droitadmin,colorbg,colormn,colorh) VALUES
+	 ('TEST2','261d684f6b7d9af996a5691e7106075e','TEST2','TEST2','alex987698@gmail.com','TEST2',false,'0','0','0'),
+	 ('thomasGFI','130ff238c323b4b0ea53b2cefbd971ba','LAHOGUE','Thomas','thomas.lahogue@gfi.fr','0614345024',false,'0','0','0'),
+	 ('ufretin','6e93f3cc142f9cd415e98c58c8fd9435','Faham','Yannick','artofdisco5555@gmail.com','0953124896',false,'0','0','0'),
+	 ('val','b0169350cd35566c47ba83c6ec1d6f82','Nguyen','Valéry','valery94350@gmail.com','0671200844',true,'0','0','0'),
+	 ('Yannick','6e93f3cc142f9cd415e98c58c8fd9435','Faham','Yannick','artofdisco5555@gmail.com','0953124896',false,'0','0','0'),
+	 ('yaya','635f399688a61a032a56719b951f9c18','BENNEOUALA','Yacine','yacinebenneouala@gmail.com','0621037407',false,'0','0','0');
+
+
+CREATE TABLE public."activite" (
+  ID_act SERIAL PRIMARY KEY,
+  Login VARCHAR(50) NOT NULL,
+  libelle VARCHAR(50) NOT NULL,
+  couleur VARCHAR(10) NOT NULL
+);
+
+
+
+INSERT INTO public."activite" (ID_act, Login, libelle, couleur) VALUES
+(1, 'makelifebetter', 'Oxygenation', '#30FE37'),
+(3, 'makelifebetter', 'transport', '#00AFBC'),
+(8, 'makelifebetter', 'Sommeil', '#096DD1'),
+(12, 'makelifebetter', 'ox / m', '#09DF10'),
+(15, 'makelifebetter', 'bilan stage', '#FE9B6A'),
+(16, 'makelifebetter', 'Study', '#A0F8FE'),
+(17, 'makelifebetter', 'Contact', '#F6FE86'),
+(18, 'val', 'math', '#F70000'),
+(19, 'makelifebetter', 'Pro', '#825CFE'),
+(20, 'silver', 'Cinéma', '#FE5151'),
+(22, 'makelifebetter', 'Shopping', '#FE9B6A'),
+(23, 'l0rent', 'manger', '#FED712'),
+(25, 'artofdisco', 'Santé', '#F6FE86'),
+(32, 'artofdisco', 'Loisirs', '#00AFBC'),
+(33, 'makelifebetter', 'remise en fm', '#30FE37'),
+(35, 'makelifebetter', 'PersoHygiene', '#A0F8FE'),
+(36, 'makelifebetter', 'Perso', '#F472C5'),
+(43, 'adminAb', 'course', '#A0F8FE'),
+(44, 'makelifebetter', 'Important', '#F70000'),
+(49, 'l0rent', 'cours de bdd', '#096DD1'),
+(50, 'l0rent', 'menage', '#FE8142'),
+(51, 'makelifebetter', 'Hobbies', '#FED712'),
+(54, 'makelifebetter', 'Housework', '#EF5000'),
+(55, 'makelifebetter', 'rtt', '#97FE9B'),
+(56, 'makelifebetter', 'visite médicale', '#00AFBC'),
+(57, 'makelifebetter', 'Disease', '#B9D9FA'),
+(58, 'makelifebetter', 'Natation', '#A0F8FE'),
+(60, 'makelifebetter', 'Organisation', '#F6FE86'),
+(61, 'ufretin', 'Santé', '#FEFEFE'),
+(62, 'makelifebetter', 'repos', '#B9D9FA'),
+(63, 'test', ' fv', '#FEE771'),
+(70, 'makelifebetter', 'Permis', '#FEE771'),
+(71, 'makelifebetter', 'Décision ', '#EF5000'),
+(72, 'test', 'xd', '#096DD1'),
+(73, 'makelifebetter', 'services', '#FE8142'),
+(74, 'makelifebetter', 'Culture', '#F6FE86'),
+(75, 'makelifebetter', 'Day off (cp)', '#09DF10'),
+(76, 'makelifebetter', 'Day off (RTT)', '#62F392'),
+(77, 'makelifebetter', 'DayOff', '#FF4FB8'),
+(78, 'jul', 'Etude : Mathématique', '#66A9ED'),
+(79, 'jul', 'Etude : Français', '#FEC58B'),
+(80, 'jul', 'Loisirs: jeux vidéo', '#FEAAAA'),
+(81, 'jul', 'Loisirs: sport', '#01C341'),
+(82, 'jul', 'Loisirs: TV', '#FEF966'),
+(83, 'jul', 'Important', '#FE3D3D'),
+(84, 'jul', 'Etude : Physique-Chimie', '#257BEC'),
+(85, 'jul', 'musculation', '#FE0505'),
+(86, 'jul', 'Lycée', '#31E6EC'),
+(87, 'jul', 'Psycologue', '#FED1A3'),
+(88, 'jul', 'DS', '#ED0101'),
+(89, 'jul', 'Contrôle', '#FE3D3D'),
+(90, 'jul', 'Etude : Histoire-Géographie', '#FEF846'),
+(91, 'makelifebetter', 'Optimisation', '#09DF10'),
+(92, 'test', 'CRM', '#FE0505'),
+(93, 'TEST2', 'IMPORTANT', '#FE0505'),
+(94, 'makelifebetter', 'cnp', '#FE9B6A'),
+(95, 'jul', 'étude', '#31E6EC'),
+(96, 'jul', 'sport', '#04DB4C'),
+(97, 'makelifebetter', 'bank tf', '#B9D9FA'),
+(98, 'makelifebetter', 'bad news', '#A0A0A0'),
+(99, 'makelifebetter', 'remarque', '#FEFB98'),
+(100, 'makelifebetter', 'Barber', '#D601DD'),
+(101, 'makelifebetter', 'Move', '#FA77FE'),
+(102, 'makelifebetter', 'Veille pro', '#FF4FB8'),
+(104, 'makelifebetter', 'Alerte', '#FEB469'),
+(105, 'makelifebetter', 'rep ext', '#FEB469'),
+(106, 'makelifebetter', 'Resto', '#95F4B5'),
+(107, 'makelifebetter', 'Familly', '#FCC4FE'),
+(108, 'makelifebetter', 'VeilleProspect', '#A0F8FE'),
+(110, 'makelifebetter', 'TimeWasted', '#A0A0A0'),
+(111, 'makelifebetter', 'Focus pro', '#FEB469'),
+(112, 'makelifebetter', 'Sport bet', '#00AC3A'),
+(114, 'makelifebetter', 'Jv', '#FEFB98'),
+(115, 'makelifebetter', 'Veille expat', '#4A98FE'),
+(117, 'makelifebetter', 'Veille tech', '#95F4B5'),
+(118, 'makelifebetter', 'Libi', '#FE1EAC'),
+(119, 'makelifebetter', 'JoursFeries', '#919090'),
+(120, 'makelifebetter', 'Veille eco', '#FEFB98'),
+(121, 'makelifebetter', 'Retard', '#FEAAAA');
+
+
+CREATE TABLE "event" (
+    id       INT GENERATED ALWAYS AS IDENTITY,
+    id_act   INT NOT NULL,
+    login    VARCHAR(30) NOT NULL,
+    libelle_activite VARCHAR(50) NOT NULL,
+    commentaire      VARCHAR(300) NOT NULL,
+    "date"   DATE NOT NULL,
+    qteh     DECIMAL(11,2) NOT NULL,
+    CONSTRAINT event_pk PRIMARY KEY (id),
+    CONSTRAINT rdv_ibfk_1
+       FOREIGN KEY (login)
+       REFERENCES "user"(login)
+       ON DELETE CASCADE
+       ON UPDATE CASCADE
+);
+
+-- restart the identity sequence at original AUTO_INCREMENT start
+-- ALTER SEQUENCE event_id_seq RESTART WITH 7703;
+
+-- indexes for faster lookups
+CREATE INDEX idx_event_libelle_activite ON event (Libelle_activite);
+CREATE INDEX idx_event_id_act           ON event (ID_act);
+CREATE INDEX idx_event_login            ON event (login);
+
+
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (1,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (12,'makelifebetter','ox / m','','2010-12-30',2.00),
+	 (1,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (1,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (3,'makelifebetter','transport','','2010-06-14',3.50),
+	 (3,'makelifebetter','transport','','2010-06-17',3.25),
+	 (3,'makelifebetter','transport','','2010-06-20',3.50),
+	 (3,'makelifebetter','transport','21h-23h','2010-07-13',2.00),
+	 (12,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (3,'makelifebetter','transport','','2010-08-14',4.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2010-07-27',4.25),
+	 (1,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (1,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (1,'makelifebetter','Oxygnation','','2006-09-09',0.00),
+	 (36,'makelifebetter','Perso','Maj ap perso','2018-12-14',2.50),
+	 (51,'makelifebetter','Hobbies','Cine: Remi ss famille (excellent)','2018-12-14',2.00),
+	 (36,'makelifebetter','Perso','Show Ju: eclipse, ethernet, use cra ap','2018-12-14',1.00),
+	 (110,'makelifebetter','TimeWasted','suivi abusif et inutile d gilets jaunes','2018-12-15',3.50),
+	 (1,'makelifebetter','Oxygenation','','2018-12-15',2.00),
+	 (22,'makelifebetter','Shopping','','2018-12-15',1.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-12-15',0.25),
+	 (3,'makelifebetter','transport','','2018-12-16',2.50),
+	 (110,'makelifebetter','TimeWasted','RÃ©veil difficile: trop de reg le soir ? trop de fÃ©culent ?','2018-12-16',3.00),
+	 (51,'makelifebetter','Hobbies','Cine: hunter killer + remi ss famille','2018-12-16',4.00),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-17',8.00),
+	 (77,'makelifebetter','DayOff','','2018-12-17',8.00),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-18',4.00),
+	 (1,'makelifebetter','Oxygenation','Jog et gym de base o stade','2018-12-18',2.50),
+	 (22,'makelifebetter','Shopping','Leclerc: 19e','2018-12-18',1.00),
+	 (3,'makelifebetter','transport','','2018-12-18',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (44,'makelifebetter','Important','Vente gear S3 150e (gars trÃ¨s sympa)','2018-12-18',0.50),
+	 (8,'makelifebetter','Sommeil','','2018-12-14',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-15',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-16',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-17',5.00),
+	 (36,'makelifebetter','Perso','FB n utub: visionnage video sur crise GJ + use of CICE','2018-12-18',1.50),
+	 (36,'makelifebetter','Perso','FB n utub: visionnage video sur crise GJ + use of CICE','2018-12-19',1.00),
+	 (36,'makelifebetter','Perso','CV et Fb avc Ju','2018-12-19',3.00),
+	 (36,'makelifebetter','Perso','Video expedia','2018-12-19',1.00),
+	 (12,'makelifebetter','ox / m','Abo 5 entrÃ©es','2018-12-20',4.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Prep pres-cal-entretien avc Ju (clash Ã  la fin, qd tu lui as dit ct bcp d invest pr t','2018-12-20',1.75),
+	 (8,'makelifebetter','Sommeil','','2018-12-18',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-19',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-20',7.00),
+	 (51,'makelifebetter','Hobbies','Cine: Aquaman','2018-12-20',2.50),
+	 (3,'makelifebetter','transport','','2018-12-21',2.50),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-21',2.00),
+	 (44,'makelifebetter','Important','ContrÃ´le compta micro entp + virement cotisations T3 2017','2018-12-21',0.50),
+	 (51,'makelifebetter','Hobbies','Cine: une famille... (jap..)','2018-12-21',0.50),
+	 (36,'makelifebetter','Perso','Get info on eco n policy (planete360 onutub)','2018-12-21',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (115,'makelifebetter','Veille expat','Get infos on scandinavia','2018-12-21',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-21',5.00),
+	 (3,'makelifebetter','transport','','2018-12-22',2.50),
+	 (110,'makelifebetter','TimeWasted','Go to sleep too late!!!','2018-12-22',1.00),
+	 (36,'makelifebetter','Perso','At BNF, elle te drague? (si oui, manque de bol, t pas trop dispo...)','2018-12-22',0.00),
+	 (8,'makelifebetter','Sommeil','At BNF','2018-12-22',0.50),
+	 (36,'makelifebetter','Perso','Get infos n make choice for xpat','2018-12-22',2.50),
+	 (3,'makelifebetter','transport','','2018-12-23',0.50),
+	 (22,'makelifebetter','Shopping','Leclerc: 34e','2018-12-23',1.00),
+	 (36,'makelifebetter','Perso','Diner avc ju','2018-12-23',0.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: Aquaman','2018-12-22',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-22',7.00),
+	 (118,'makelifebetter','Libi','','2018-12-23',0.50),
+	 (110,'makelifebetter','TimeWasted','Temps recup after libi...','2018-12-23',1.50),
+	 (110,'makelifebetter','TimeWasted','go to bed n wk too late !!!','2018-12-24',2.00),
+	 (110,'makelifebetter','TimeWasted','go to bed n wk too late !!!','2018-12-25',2.00),
+	 (1,'makelifebetter','Oxygenation','','2018-12-24',2.50),
+	 (8,'makelifebetter','Sommeil','','2018-12-23',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-24',7.00),
+	 (3,'makelifebetter','transport','','2018-12-25',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (44,'makelifebetter','Important','noel','2018-12-25',8.00),
+	 (36,'makelifebetter','Perso','Ballade velo ds Paris','2018-12-25',5.00),
+	 (51,'makelifebetter','Hobbies','Cine: mortal engines','2018-12-25',2.00),
+	 (110,'makelifebetter','TimeWasted','Call BP for nothing, u took wrong credit card yesterday','2018-12-26',0.50),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-26',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-25',5.00),
+	 (3,'makelifebetter','transport','','2018-12-26',1.50),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-27',0.00),
+	 (22,'makelifebetter','Shopping','Val d Europe (sweat nike 63e + mtr casio 25e)','2018-12-26',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-26',5.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: Bullit','2018-12-27',2.00),
+	 (22,'makelifebetter','Shopping','Decath Villiers','2018-12-27',0.50),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-27',4.00),
+	 (3,'makelifebetter','transport','','2018-12-28',1.00),
+	 (22,'makelifebetter','Shopping','Leclerc, auchan: ~ 20e, retour casio > avoir 25e','2018-12-28',1.50),
+	 (77,'makelifebetter','DayOff','Dod','2018-12-28',3.00),
+	 (110,'makelifebetter','TimeWasted','wk too late !!!','2018-12-28',2.00),
+	 (12,'makelifebetter','ox / m','','2018-12-29',3.50),
+	 (1,'makelifebetter','Oxygenation','','2018-12-30',2.50),
+	 (22,'makelifebetter','Shopping','10E','2018-12-29',0.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (22,'makelifebetter','Shopping','Leclerc 30e','2018-12-31',1.50),
+	 (3,'makelifebetter','transport','','2018-12-31',1.00),
+	 (115,'makelifebetter','Veille expat','Eval Hlesinki vs Copenagen','2018-12-30',2.00),
+	 (115,'makelifebetter','Veille expat','Eval Hlesinki vs Copenagen','2018-12-29',2.00),
+	 (115,'makelifebetter','Veille expat','Eval Hlesinki vs Copenagen','2018-12-31',2.00),
+	 (22,'makelifebetter','Shopping','Val d europe : nike at go sport > 35e','2018-12-31',1.50),
+	 (36,'makelifebetter','Perso','Velib ds Paris','2019-01-01',5.00),
+	 (3,'makelifebetter','transport','','2019-01-01',1.50),
+	 (8,'makelifebetter','Sommeil','','2018-12-27',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-28',5.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2018-12-29',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-30',5.00),
+	 (8,'makelifebetter','Sommeil','','2018-12-31',5.00),
+	 (51,'makelifebetter','Hobbies','Cine: Bumple Bee','2018-12-29',1.00),
+	 (77,'makelifebetter','DayOff','Jour de l an','2019-01-01',8.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late','2019-01-02',5.00),
+	 (115,'makelifebetter','Veille expat','A priori go Helsinki (+ calme et suffisamment urbanisÃ© et cost of living not too high...)','2019-01-02',2.00),
+	 (1,'makelifebetter','Oxygenation','Equivalence velib matin nouvel an','2019-01-01',1.50),
+	 (51,'makelifebetter','Hobbies','Movies streaming','2019-01-02',1.50),
+	 (1,'makelifebetter','Oxygenation','','2019-01-02',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-03',3.00),
+	 (115,'makelifebetter','Veille expat','Attention Helsinki tÂ° ressenti vers -17Â°C actuellement','2019-01-03',1.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-03',6.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-02',6.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-01',6.00),
+	 (1,'makelifebetter','Oxygenation','','2019-01-04',2.50),
+	 (22,'makelifebetter','Shopping','Lidl: 5e','2019-01-05',0.50),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-05',5.00),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-04',3.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-05',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Suivi news: Gilets jaunes...','2019-01-05',1.00),
+	 (22,'makelifebetter','Shopping','Leclerc: 30e','2019-01-03',1.00),
+	 (51,'makelifebetter','Hobbies','Cine: love in the afternoon','2019-01-04',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-04',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-06',3.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-04',6.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-05',3.00),
+	 (1,'makelifebetter','Oxygenation','','2019-01-06',2.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-07',3.00),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-06',3.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2019-01-06',6.00),
+	 (51,'makelifebetter','Hobbies','Cine: Bumblebee','2019-01-07',2.00),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-08',3.50),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-07',3.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-08',3.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-07',6.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-08',6.00),
+	 (3,'makelifebetter','transport','','2019-01-09',2.50),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-09',3.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-09',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: on the basis of sex + 1h of creed 2 ','2019-01-09',3.00),
+	 (22,'makelifebetter','Shopping','','2019-01-09',0.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late, no cine too late in the week pls!!!','2019-01-10',5.00),
+	 (44,'makelifebetter','Important','Dec CA T4 2018 + validation ordre tÃ©lÃ©paiement, + paiemement majoration cotisations T3 2017','2019-01-10',0.50),
+	 (115,'makelifebetter','Veille expat','Comparaison dest possibles asap (prague, oslo, copenhagen;helsinki...) on different criterias (eco, social, infrastrutures, liveability, pollution, cost of living, weather...) ','2019-01-10',2.00),
+	 (1,'makelifebetter','Oxygenation','jOG/GYM SOIR O STADE VILLIERS','2019-01-10',2.50),
+	 (8,'makelifebetter','Sommeil','','2019-01-09',7.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-10',5.00),
+	 (3,'makelifebetter','transport','Panne rer A','2019-01-11',3.50),
+	 (22,'makelifebetter','Shopping','Leclerc 30E, Decath wagram et la def 20E, CC Val d Europe 115E','2019-01-11',7.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2019-01-11',2.50),
+	 (77,'makelifebetter','DayOff','U done after ytd','2019-01-12',7.00),
+	 (8,'makelifebetter','Sommeil','','2019-01-12',7.00),
+	 (36,'makelifebetter','Perso','Suivi news GJ','2019-01-12',2.00),
+	 (36,'makelifebetter','Perso','Maj insta acount (u seemstired n not enoigh motivated, have to correct this!!!)','2019-01-13',4.00),
+	 (1,'makelifebetter','Oxygenation','Gros pb d appui sur pieds gauche','2019-01-13',2.50),
+	 (44,'makelifebetter','Important','Attention gros souci d appui sur pied gauche...','2019-01-13',1.00),
+	 (1,'makelifebetter','Oxygenation','','2019-01-14',2.50),
+	 (22,'makelifebetter','Shopping','5e','2019-01-15',0.50),
+	 (8,'makelifebetter','Sommeil','','2019-01-13',7.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2019-01-14',7.00),
+	 (22,'makelifebetter','Shopping','Leclerc 17e','2019-01-14',1.00),
+	 (36,'makelifebetter','Perso','Maj insta acount (u seemstired n not enoigh motivated, have to correct this!!!)','2019-01-15',2.00),
+	 (36,'makelifebetter','Perso','Maj insta acount (u seemstired n not enoigh motivated, have to correct this!!!)','2019-01-14',2.00),
+	 (22,'makelifebetter','Shopping','Decathlon: 45e','2019-01-15',1.00),
+	 (115,'makelifebetter','Veille expat','Check prices to travel at copenhagen, oslo, helsinki...','2019-01-15',0.75),
+	 (36,'makelifebetter','Perso','Rangt chb Ju','2019-01-16',3.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late, dont spend too much time checking news or expat infos on bed or somewhere like that...','2019-01-16',4.00),
+	 (51,'makelifebetter','Hobbies','Cine: Edmond','2019-01-17',2.00),
+	 (22,'makelifebetter','Shopping','A Thierry (echg pants ctr jeans) + socks (2e) + achat running pants (26e)','2019-01-16',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (77,'makelifebetter','DayOff','','2018-11-02',7.00),
+	 (51,'makelifebetter','Hobbies','Cine: last spielberg','2018-03-28',0.75),
+	 (108,'makelifebetter','VeilleProspect','','2018-03-29',3.00),
+	 (8,'makelifebetter','Sommeil','','2018-03-30',6.50),
+	 (8,'makelifebetter','Sommeil','','2018-03-29',6.50),
+	 (3,'makelifebetter','transport','','2018-03-31',2.50),
+	 (1,'makelifebetter','Oxygenation','','2018-03-30',2.25),
+	 (110,'makelifebetter','TimeWasted','','2018-03-30',2.50),
+	 (51,'makelifebetter','Hobbies','Fifa 17','2018-03-30',1.50),
+	 (51,'makelifebetter','Hobbies','Cine: blue + ready player one','2018-03-29',3.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (44,'makelifebetter','Important','Tu t dÃ©fiancÃ©..','2018-03-29',1.00),
+	 (36,'makelifebetter','Perso','Get infos about expat project, n differnt look on french lifestyle...','2018-03-31',6.00),
+	 (36,'makelifebetter','Perso','Val d Europe - Bussy st georges','2018-04-02',2.00),
+	 (3,'makelifebetter','transport','','2018-04-02',1.50),
+	 (51,'makelifebetter','Hobbies','Cine: RPO','2018-04-02',2.00),
+	 (110,'makelifebetter','TimeWasted','','2018-04-01',2.00),
+	 (12,'makelifebetter','ox / m','','2018-04-01',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-03-31',7.00),
+	 (3,'makelifebetter','transport','','2018-04-03',2.50),
+	 (36,'makelifebetter','Perso','','2018-04-03',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (108,'makelifebetter','VeilleProspect','Check Scandinavia jobsites','2018-04-03',2.50),
+	 (3,'makelifebetter','transport','','2018-04-04',2.50),
+	 (8,'makelifebetter','Sommeil','','2018-04-02',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-01',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-03',7.00),
+	 (108,'makelifebetter','VeilleProspect','','2018-04-04',1.50),
+	 (110,'makelifebetter','TimeWasted','','2018-04-01',2.00),
+	 (51,'makelifebetter','Hobbies','Cine: ds la brume + red sparrow','2018-04-04',4.50),
+	 (36,'makelifebetter','Perso','prom nocturne','2018-04-05',3.00),
+	 (3,'makelifebetter','transport','','2018-04-05',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (108,'makelifebetter','VeilleProspect','','2018-04-05',1.25),
+	 (19,'makelifebetter','Pro','Envoi candidature poste ESN noisy','2018-04-04',0.25),
+	 (8,'makelifebetter','Sommeil','','2018-04-04',7.00),
+	 (51,'makelifebetter','Hobbies','Cine : les dents ...','2018-04-05',1.50),
+	 (110,'makelifebetter','TimeWasted','Goals n projects >>> dreams !! (especially when u r poor...)','2018-04-06',3.50),
+	 (3,'makelifebetter','transport','','2018-04-06',2.50),
+	 (108,'makelifebetter','VeilleProspect','Think on expat (where, why...)','2018-04-06',1.00),
+	 (51,'makelifebetter','Hobbies','Cine: marie madelaine','2018-04-06',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-05',7.00),
+	 (12,'makelifebetter','ox / m','','2018-04-07',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (77,'makelifebetter','DayOff','','2018-04-07',4.00),
+	 (110,'makelifebetter','TimeWasted','wk too lat..','2018-04-07',4.00),
+	 (51,'makelifebetter','Hobbies','fif','2018-04-07',1.25),
+	 (3,'makelifebetter','transport','','2018-04-08',3.00),
+	 (110,'makelifebetter','TimeWasted','Queue..','2018-04-08',0.75),
+	 (8,'makelifebetter','Sommeil','','2018-04-06',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-07',8.00),
+	 (108,'makelifebetter','VeilleProspect','','2018-04-08',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-09',7.00),
+	 (1,'makelifebetter','Oxygenation','','2018-04-09',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: The way of the dragon','2018-04-08',1.75),
+	 (51,'makelifebetter','Hobbies','Cine: Fist of fury','2018-04-10',1.75),
+	 (3,'makelifebetter','transport','','2018-04-10',3.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-08',7.00),
+	 (8,'makelifebetter','Sommeil','Fo rentrer + tÃ´t !!','2018-04-10',6.00),
+	 (110,'makelifebetter','TimeWasted','wk too lat..','2018-04-09',4.00),
+	 (108,'makelifebetter','VeilleProspect','Contact for stockholm, check current op','2018-04-10',6.00),
+	 (3,'makelifebetter','transport','','2018-04-11',2.50),
+	 (108,'makelifebetter','VeilleProspect','','2018-04-11',6.50),
+	 (51,'makelifebetter','Hobbies','Cine: Kings','2018-04-11',1.75);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2018-04-11',7.00),
+	 (8,'makelifebetter','Sommeil','Fo rentrer + tÃ´t !!','2018-04-12',6.00),
+	 (77,'makelifebetter','DayOff','','2018-04-12',4.00),
+	 (110,'makelifebetter','TimeWasted','','2018-04-12',3.00),
+	 (12,'makelifebetter','ox / m','','2018-04-12',3.00),
+	 (51,'makelifebetter','Hobbies','fif?','2018-04-12',1.25),
+	 (3,'makelifebetter','transport','','2018-04-13',2.50),
+	 (3,'makelifebetter','transport','','2018-04-14',2.50),
+	 (8,'makelifebetter','Sommeil','Fo rentrer + tÃ´t !!','2018-04-13',6.00),
+	 (108,'makelifebetter','VeilleProspect','','2018-04-13',6.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: the 3rd murdered','2018-04-13',1.50),
+	 (110,'makelifebetter','TimeWasted','','2018-04-13',2.00),
+	 (110,'makelifebetter','TimeWasted','on Media n social media..','2018-04-14',3.00),
+	 (108,'makelifebetter','VeilleProspect','','2018-04-14',2.00),
+	 (8,'makelifebetter','Sommeil','Dod Ã  23h (c bien !)','2018-04-14',6.00),
+	 (12,'makelifebetter','ox / m','','2018-04-15',3.00),
+	 (3,'makelifebetter','transport','','2018-04-15',3.00),
+	 (108,'makelifebetter','VeilleProspect','','2018-04-15',5.00),
+	 (36,'makelifebetter','Perso','check perso','2018-04-15',1.00),
+	 (51,'makelifebetter','Hobbies','Cine: on a 20a ... +Foire du TrÃ´ne','2018-04-15',1.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','Dod vers 23h (c bien !)','2018-04-16',5.50),
+	 (8,'makelifebetter','Sommeil','Dod Ã  2h30!!','2018-04-15',7.00),
+	 (3,'makelifebetter','transport','','2018-04-17',2.50),
+	 (110,'makelifebetter','TimeWasted','wk too lat..','2018-04-16',3.00),
+	 (12,'makelifebetter','ox / m','','2018-04-16',3.50),
+	 (108,'makelifebetter','VeilleProspect','Bib 8h30 Ã  17h45: maj cv fr+en, sending, check op...','2018-04-17',7.00),
+	 (1,'makelifebetter','Oxygenation','','2018-04-17',1.50),
+	 (110,'makelifebetter','TimeWasted','wk too lat.. (Each time u check in morning, each time u slow ur activities it s dc considering where u came from.. misery...)','2018-04-18',3.00),
+	 (3,'makelifebetter','transport','','2018-04-18',2.50),
+	 (8,'makelifebetter','Sommeil','','2018-04-17',7.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (108,'makelifebetter','VeilleProspect','Gars, fo pas d erreurs... Investir ds du solide...','2018-04-18',4.00),
+	 (51,'makelifebetter','Hobbies','Cine: la mort de stalline (qd les ultra libÃ©raux moquent les soviets...)','2018-04-18',2.00),
+	 (1,'makelifebetter','Oxygenation','Work more on the top of the body (if not -> unbalance...)','2018-04-19',3.00),
+	 (3,'makelifebetter','transport','','2018-04-19',2.50),
+	 (110,'makelifebetter','TimeWasted','unbalance...','2018-04-19',1.00),
+	 (44,'makelifebetter','Important','Relance contacts','2018-04-16',2.00),
+	 (8,'makelifebetter','Sommeil','(pr le bruit, t as tvÃ© la bne tech, mais fo dod + tÃ´t!!!)','2018-04-18',3.50),
+	 (108,'makelifebetter','VeilleProspect','Apply via LinkedIn','2018-04-19',4.00),
+	 (3,'makelifebetter','transport','','2018-04-20',2.50),
+	 (51,'makelifebetter','Hobbies','Cine: place publique','2018-04-19',1.75);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','vers 2h30, too late!!','2018-04-19',5.50),
+	 (1,'makelifebetter','Oxygenation','','2018-04-22',2.50),
+	 (3,'makelifebetter','transport','','2018-04-21',2.50),
+	 (3,'makelifebetter','transport','','2018-04-22',2.50),
+	 (44,'makelifebetter','Important','Visite et insc salle de gym paris','2018-04-20',0.50),
+	 (51,'makelifebetter','Hobbies','Cine: Battleship island','2018-04-21',2.25),
+	 (110,'makelifebetter','TimeWasted','Echange stÃ©rile sur fb','2018-04-21',1.00),
+	 (108,'makelifebetter','VeilleProspect','Apply via LinkedIn','2018-04-20',4.00),
+	 (22,'makelifebetter','Shopping','','2018-04-21',0.50),
+	 (22,'makelifebetter','Shopping','','2018-04-22',0.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (110,'makelifebetter','TimeWasted','','2018-04-20',1.50),
+	 (8,'makelifebetter','Sommeil','','2018-04-20',8.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-21',4.50),
+	 (110,'makelifebetter','TimeWasted','Tired','2018-04-22',0.75),
+	 (108,'makelifebetter','VeilleProspect','Poursuite LM CP op','2018-04-22',3.50),
+	 (3,'makelifebetter','transport','','2018-04-23',3.25),
+	 (3,'makelifebetter','transport','','2018-04-24',2.50),
+	 (12,'makelifebetter','ox / m','Test salle','2018-04-23',4.00),
+	 (77,'makelifebetter','DayOff','','2018-04-23',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-23',8.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','fif','2018-04-24',1.25),
+	 (51,'makelifebetter','Hobbies','Cine: ...','2018-04-24',0.50),
+	 (36,'makelifebetter','Perso','Lecture, rÃ©flexion...','2018-04-24',2.00),
+	 (44,'makelifebetter','Important','Clash frerot / sbd vers 8h...          ','2018-04-24',0.50),
+	 (22,'makelifebetter','Shopping','Auchan val d europe','2018-04-23',0.50),
+	 (8,'makelifebetter','Sommeil','','2018-04-22',3.50),
+	 (51,'makelifebetter','Hobbies','Cine: ...','2018-04-24',1.00),
+	 (110,'makelifebetter','TimeWasted','','2018-04-25',2.00),
+	 (108,'makelifebetter','VeilleProspect','Apply op freelance','2018-04-24',4.00),
+	 (3,'makelifebetter','transport','','2018-04-25',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Check news + SM','2018-04-25',1.00),
+	 (108,'makelifebetter','VeilleProspect','Apply BNP offer','2018-04-25',4.00),
+	 (3,'makelifebetter','transport','','2018-04-26',3.50),
+	 (12,'makelifebetter','ox / m','Test salle','2018-04-26',4.00),
+	 (51,'makelifebetter','Hobbies','Cine: infinity war','2018-04-26',2.75),
+	 (51,'makelifebetter','Hobbies','Cine: infinity war','2018-04-27',2.75),
+	 (8,'makelifebetter','Sommeil','','2018-04-26',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-25',6.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-24',4.50),
+	 (3,'makelifebetter','transport','Dt 30mn Ã  Villiers..','2018-04-27',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (110,'makelifebetter','TimeWasted','wk too lat..','2018-04-27',2.00),
+	 (108,'makelifebetter','VeilleProspect','4 applying via linkedIn (Fo pas se suffir de si peur... results 1st!!)','2018-04-27',2.50),
+	 (3,'makelifebetter','transport','','2018-04-28',3.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-27',4.50),
+	 (108,'makelifebetter','VeilleProspect','apply (1 by mail, 2 via linkedin, 1 for den) + op search in Den...','2018-04-28',4.00),
+	 (12,'makelifebetter','ox / m','Test salle (nocturne, 1h -> 6h)','2018-04-29',5.00),
+	 (3,'makelifebetter','transport','','2018-04-29',3.00),
+	 (8,'makelifebetter','Sommeil','','2018-04-28',1.50),
+	 (8,'makelifebetter','Sommeil','','2018-04-29',5.00),
+	 (108,'makelifebetter','VeilleProspect','maj perso ap','2018-04-29',1.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','maj (stat on custom period feature) ap perso (at mk2...)','2018-04-29',2.00),
+	 (36,'makelifebetter','Perso','Maj perso ap','2018-04-30',1.50),
+	 (108,'makelifebetter','VeilleProspect','Maj perso ap','2018-04-30',1.50),
+	 (36,'makelifebetter','Perso','client mail conf (get email in local storage)','2018-04-30',1.00),
+	 (51,'makelifebetter','Hobbies','Cine','2018-04-30',1.50),
+	 (3,'makelifebetter','transport','','2018-04-30',0.75),
+	 (8,'makelifebetter','Sommeil','','2018-04-30',7.00),
+	 (36,'makelifebetter','Perso','Perso ap','2018-05-01',2.50),
+	 (108,'makelifebetter','VeilleProspect','RÃ©vision web (php, htlm, js, css, sql...)','2018-05-01',2.50),
+	 (110,'makelifebetter','TimeWasted','wk too late','2018-05-02',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (1,'makelifebetter','Oxygenation','','2018-05-02',2.50),
+	 (22,'makelifebetter','Shopping','','2018-05-02',0.75),
+	 (3,'makelifebetter','transport','','2018-05-02',0.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-01',8.00),
+	 (3,'makelifebetter','transport','','2018-05-03',2.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-02',7.00),
+	 (110,'makelifebetter','TimeWasted','wk too late','2018-05-03',2.00),
+	 (36,'makelifebetter','Perso','pc ju','2018-05-03',0.75),
+	 (36,'makelifebetter','Perso','Perso ap','2018-05-03',2.50),
+	 (108,'makelifebetter','VeilleProspect','RÃ©vision web (php, htlm, js, css, sql...)','2018-05-02',1.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Maj perso ap','2018-05-02',1.50),
+	 (108,'makelifebetter','VeilleProspect','RÃ©vision web (php, htlm, js, css, sql...)','2018-05-03',2.50),
+	 (51,'makelifebetter','Hobbies','Cine: cm d rois','2018-05-03',1.50),
+	 (111,'makelifebetter','Focus pro','','2018-04-30',1.00),
+	 (111,'makelifebetter','Focus pro','','2018-05-01',1.00),
+	 (111,'makelifebetter','Focus pro','','2018-05-02',1.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-03',7.00),
+	 (108,'makelifebetter','VeilleProspect','RÃ©vision web (php, htlm, js, css, sql...)','2018-05-04',1.25),
+	 (36,'makelifebetter','Perso','Perso ap','2018-05-04',1.25),
+	 (19,'makelifebetter','Pro','Call gentis','2018-05-04',0.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (19,'makelifebetter','Pro','Call N lesabre (club freelance): time lost','2018-05-04',0.25),
+	 (19,'makelifebetter','Pro','Apply  incident manager ','2018-05-04',0.25),
+	 (110,'makelifebetter','TimeWasted','wk too late','2018-05-04',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-04',2.00),
+	 (3,'makelifebetter','transport','','2018-05-04',0.50),
+	 (3,'makelifebetter','transport','','2018-05-05',4.00),
+	 (12,'makelifebetter','ox / m','','2018-05-05',4.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-05',2.00),
+	 (110,'makelifebetter','TimeWasted','','2018-05-05',0.50),
+	 (108,'makelifebetter','VeilleProspect','reflx, check op','2018-05-05',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: escobar','2018-05-05',1.75),
+	 (8,'makelifebetter','Sommeil','','2018-05-06',7.00),
+	 (3,'makelifebetter','transport','','2018-05-06',2.50),
+	 (44,'makelifebetter','Important','Distinguer activitÃ©s + finement: hobbies, veilleprospect...','2018-05-06',3.00),
+	 (112,'makelifebetter','Sport bet','','2018-05-06',0.75),
+	 (115,'makelifebetter','Veille expat','','2018-05-06',3.50),
+	 (12,'makelifebetter','ox / m','','2018-05-07',4.00),
+	 (3,'makelifebetter','transport','','2018-05-07',2.50),
+	 (115,'makelifebetter','Veille expat','','2018-05-07',1.00),
+	 (51,'makelifebetter','Hobbies','Cine: rampage + deb Otages a ottenbe..','2018-05-07',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (117,'makelifebetter','Veille tech','IntÃ©gration chart JS api','2018-05-08',1.50),
+	 (36,'makelifebetter','Perso','Maj ap perso','2018-05-08',2.00),
+	 (51,'makelifebetter','Hobbies','Cine: fin Otages a ottenbe..','2018-05-08',1.00),
+	 (3,'makelifebetter','transport','','2018-05-08',0.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-07',4.50),
+	 (36,'makelifebetter','Perso','maj perso ap','2018-05-08',1.50),
+	 (117,'makelifebetter','Veille tech','RÃ©vision web (php, htlm, js, css, sql...)','2018-05-08',1.50),
+	 (3,'makelifebetter','transport','','2018-05-09',2.50),
+	 (117,'makelifebetter','Veille tech','IntÃ©gration chart api js','2018-05-09',1.75),
+	 (36,'makelifebetter','Perso','maj ap perso','2018-05-09',1.75);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (110,'makelifebetter','TimeWasted','Attention phase ap reg... ','2018-05-09',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-08',8.00),
+	 (12,'makelifebetter','ox / m','','2018-05-10',4.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-10',8.00),
+	 (115,'makelifebetter','Veille expat','Visite Fontainebleau & Versailles','2018-05-10',4.00),
+	 (3,'makelifebetter','transport','','2018-05-10',3.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late (come back villiers bef 0h00 if possible)','2018-05-11',1.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-09',2.00),
+	 (3,'makelifebetter','transport','','2018-05-11',2.50),
+	 (51,'makelifebetter','Hobbies','Cine: gringo','2018-05-11',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Maj ap perso','2018-05-11',1.00),
+	 (108,'makelifebetter','VeilleProspect','check offer (77 lieusaint)','2018-05-11',1.00),
+	 (117,'makelifebetter','Veille tech','stack perso ap','2018-05-11',0.75),
+	 (110,'makelifebetter','TimeWasted','Wk too late (come back villiers bef 0h00 if possible)','2018-05-12',2.00),
+	 (117,'makelifebetter','Veille tech','stack perso ap','2018-05-12',3.50),
+	 (36,'makelifebetter','Perso','maj ap perso (group by day, report n comp), chart api : ggl -> local','2018-05-12',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-12',0.50),
+	 (12,'makelifebetter','ox / m','','2018-05-13',4.50),
+	 (3,'makelifebetter','transport','','2018-05-13',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-13',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2018-05-11',8.00),
+	 (3,'makelifebetter','transport','','2018-05-12',0.50),
+	 (51,'makelifebetter','Hobbies','Cine: M..','2018-05-13',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late (come back villiers bef 0h00 if possible)','2018-05-14',2.00),
+	 (3,'makelifebetter','transport','','2018-05-14',1.00),
+	 (22,'makelifebetter','Shopping','Leclerc','2018-05-14',1.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late (sleep bef 00H0)','2018-05-15',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-15',8.00),
+	 (101,'makelifebetter','Move','Ballade sur ligne R (TER) : fontainebleau, terminus, INSEAD...','2018-05-15',3.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late (sleep bef 00H0)','2018-05-16',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-05-15',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-14',8.00),
+	 (118,'makelifebetter','libi','Auto reg','2018-05-15',0.50),
+	 (44,'makelifebetter','Important','Mail Mme KOSTADINOVA pr dd Ã©tat d lieux de sortie','2018-05-16',0.25),
+	 (19,'makelifebetter','Pro','Cand apec dev php lieusaint','2018-05-16',0.25),
+	 (12,'makelifebetter','ox / m','','2018-05-17',4.50),
+	 (3,'makelifebetter','transport','','2018-05-16',0.50),
+	 (3,'makelifebetter','transport','','2018-05-17',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-17',4.00),
+	 (108,'makelifebetter','VeilleProspect','','2018-05-16',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (51,'makelifebetter','Hobbies','Cine: en guerre','2018-05-16',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-16',1.50),
+	 (19,'makelifebetter','Pro','Call Skilhome (Marion Mohan) pr mission dev php RhÃ´ne Alpes','2018-05-17',0.75),
+	 (110,'makelifebetter','TimeWasted','Pic de libido..','2018-05-17',0.50),
+	 (19,'makelifebetter','Pro','Contact club freelance pour op','2018-05-17',0.25),
+	 (3,'makelifebetter','transport','','2018-05-18',2.50),
+	 (51,'makelifebetter','Hobbies','Test JV at BNF','2018-05-18',3.50),
+	 (36,'makelifebetter','Perso','Prep courrier resil ass habit 92','2018-05-18',0.50),
+	 (19,'makelifebetter','Pro','Echange avc Marion Mohan pr mission eventuelle en dev php ds le 69 + rchch infos (coÃ»t l racism ds 69)','2018-05-18',1.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-18',3.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-05-19',2.50),
+	 (12,'makelifebetter','ox / m','','2018-05-19',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-19',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-20',8.00),
+	 (51,'makelifebetter','Hobbies','Cine: en guerre','2018-05-18',1.50),
+	 (51,'makelifebetter','Hobbies','Jv','2018-05-20',3.25),
+	 (110,'makelifebetter','TimeWasted','Wk too late (come back villiers bef 0h00 if possible)','2018-05-21',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late (come back villiers bef 0h00 if possible)','2018-05-20',2.00),
+	 (22,'makelifebetter','Shopping','Val d europe, rien ht','2018-05-20',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-21',7.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (22,'makelifebetter','Shopping','Carrouf noisy','2018-05-21',0.75),
+	 (108,'makelifebetter','VeilleProspect','Prep entretiens mardi','2018-05-21',1.00),
+	 (108,'makelifebetter','VeilleProspect','Prep futurs interviews','2018-05-22',4.00),
+	 (19,'makelifebetter','Pro','1er call OK','2018-05-22',0.50),
+	 (19,'makelifebetter','Pro','2eme call done','2018-05-22',0.50),
+	 (51,'makelifebetter','Hobbies','Cine: deadpool 2','2018-05-22',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late (come back villiers bef 0h00 if possible)','2018-05-23',2.00),
+	 (3,'makelifebetter','transport','','2018-05-22',2.50),
+	 (119,'makelifebetter','JoursFeries','','2018-05-21',8.00),
+	 (119,'makelifebetter','JoursFeries','','2018-05-20',8.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (119,'makelifebetter','JoursFeries','','2018-05-17',8.00),
+	 (119,'makelifebetter','JoursFeries','','2018-05-15',8.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-23',6.50),
+	 (1,'makelifebetter','Oxygenation','','2018-05-21',1.50),
+	 (118,'makelifebetter','libi','','2018-05-23',0.25),
+	 (118,'makelifebetter','libi','','2018-05-19',0.50),
+	 (51,'makelifebetter','Hobbies','Cine: senses 5','2018-05-24',1.25),
+	 (3,'makelifebetter','transport','','2018-05-24',2.50),
+	 (44,'makelifebetter','Important','bo freeness illimitÃ© ss engagements','2018-05-23',1.00),
+	 (111,'makelifebetter','Focus pro','','2018-05-24',2.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (108,'makelifebetter','VeilleProspect','Candidatures (cp, expat, idf, province, formation cloud...)','2018-05-24',1.00),
+	 (51,'makelifebetter','Hobbies','1h30 + 0h30: fif','2018-05-24',2.00),
+	 (51,'makelifebetter','Hobbies','fif','2018-05-23',1.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-24',6.00),
+	 (1,'makelifebetter','Oxygenation','','2018-05-25',2.00),
+	 (3,'makelifebetter','transport','','2018-05-25',2.50),
+	 (108,'makelifebetter','VeilleProspect','Call back','2018-05-25',1.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-25',7.00),
+	 (118,'makelifebetter','libi','','2018-05-25',0.25),
+	 (12,'makelifebetter','ox / m','','2018-05-26',4.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-05-26',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-26',4.00),
+	 (117,'makelifebetter','Veille tech','Prise infos ab tech events','2018-05-26',1.50),
+	 (3,'makelifebetter','transport','','2018-05-27',2.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-27',8.00),
+	 (110,'makelifebetter','TimeWasted','wk too late according to the planning!!!','2018-05-27',2.00),
+	 (36,'makelifebetter','Perso','RÃ©flexion perso sur expat hors IDF...','2018-05-27',2.50),
+	 (3,'makelifebetter','transport','','2018-05-28',2.50),
+	 (3,'makelifebetter','transport','','2018-05-29',3.00),
+	 (51,'makelifebetter','Hobbies','Cine: mn coeur transparent','2018-05-28',1.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Ballade Paris 16, renc Igor AfpaCreteil 2008','2018-05-28',2.00),
+	 (8,'makelifebetter','Sommeil','Coucher + tÃ´t!!!','2018-05-29',5.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-28',3.50),
+	 (12,'makelifebetter','ox / m','','2018-05-28',4.00),
+	 (115,'makelifebetter','Veille expat','Test radio suisse','2018-05-28',1.00),
+	 (118,'makelifebetter','libi','','2018-05-28',0.50),
+	 (19,'makelifebetter','Pro','Entretien Page personnel','2018-05-29',1.00),
+	 (3,'makelifebetter','transport','','2018-05-30',2.50),
+	 (51,'makelifebetter','Hobbies','Cine: l homme dauphin','2018-05-30',1.50),
+	 (110,'makelifebetter','TimeWasted','Wk too late (sleep bef 00H0)','2018-05-30',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-05-31',2.50),
+	 (19,'makelifebetter','Pro','Call RH Lyon pr cancel rdv','2018-05-30',0.50),
+	 (8,'makelifebetter','Sommeil','','2018-05-30',7.00),
+	 (118,'makelifebetter','libi','','2018-05-31',0.50),
+	 (51,'makelifebetter','Hobbies','Music BNF','2018-05-31',1.00),
+	 (36,'makelifebetter','Perso','Maj ap perso','2018-05-31',1.00),
+	 (111,'makelifebetter','Focus pro','Focus past month + focus future (pro n perso)','2018-05-31',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-05-31',7.50),
+	 (1,'makelifebetter','Oxygenation','just after wk','2018-06-01',2.00),
+	 (3,'makelifebetter','transport','','2018-06-01',2.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','Check infos divers at bnf (notamment security index all around the planet)','2018-06-01',2.00),
+	 (51,'makelifebetter','Hobbies','Cine: operation Beyrouth','2018-06-01',1.75),
+	 (51,'makelifebetter','Hobbies','fif','2018-06-02',1.50),
+	 (3,'makelifebetter','transport','','2018-06-02',2.50),
+	 (8,'makelifebetter','Sommeil','','2018-06-02',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-01',5.00),
+	 (111,'makelifebetter','Focus pro','prep trajet 05/06','2018-06-02',1.50),
+	 (118,'makelifebetter','libi','At wk (pas si mal, allow to focus better, better cerebral actv)','2018-06-02',0.25),
+	 (51,'makelifebetter','Hobbies','Check youtube clip at BNF (special chair)','2018-06-02',1.00),
+	 (117,'makelifebetter','Veille tech','','2018-06-02',1.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2018-06-02',1.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-03',8.00),
+	 (3,'makelifebetter','transport','','2018-06-03',2.50),
+	 (36,'makelifebetter','Perso','RÃ©lexion vie perso','2018-06-03',1.00),
+	 (44,'makelifebetter','Important','Resa train pr Lyon le ma 05-06-18','2018-06-03',0.50),
+	 (111,'makelifebetter','Focus pro','Prep entretien Lyon(Jacquet metal services)','2018-06-03',1.50),
+	 (117,'makelifebetter','Veille tech','','2018-06-04',0.50),
+	 (3,'makelifebetter','transport','','2018-06-04',2.50),
+	 (12,'makelifebetter','ox / m','','2018-06-04',4.00),
+	 (44,'makelifebetter','Important','Envoi copie Ã©tat d lieux de sortie Courbevoie Ã  ECA ass','2018-06-04',0.25);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-06-05',4.50),
+	 (3,'makelifebetter','transport','','2018-06-06',2.50),
+	 (3,'makelifebetter','transport','Incident voyageurs RER A Ã  Bry','2018-06-07',2.50),
+	 (19,'makelifebetter','Pro','xpat event in Paris: recup infos ab work in Denmark, conf emploi ds le monde et vie et w du nord','2018-06-06',3.50),
+	 (19,'makelifebetter','Pro','Entretien jacquet metal services','2018-06-05',1.50),
+	 (51,'makelifebetter','Hobbies','Cine: Jurrasic world 2','2018-06-05',0.50),
+	 (51,'makelifebetter','Hobbies','Cine: Jurrasic world 2','2018-06-06',2.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-04',7.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-05',3.50),
+	 (8,'makelifebetter','Sommeil','','2018-06-06',7.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2018-06-07',7.00),
+	 (111,'makelifebetter','Focus pro','Rchch et resa logt Lyon','2018-06-08',2.50),
+	 (36,'makelifebetter','Perso','Visite Lyon','2018-06-05',2.50),
+	 (22,'makelifebetter','Shopping','','2018-06-07',1.00),
+	 (111,'makelifebetter','Focus pro','Envoi contrat Ã  SilkHom + resa logement Ã  Venissieux','2018-06-08',1.50),
+	 (8,'makelifebetter','Sommeil','','2018-06-08',7.00),
+	 (12,'makelifebetter','ox / m','','2018-06-09',4.00),
+	 (3,'makelifebetter','transport','','2018-06-09',2.50),
+	 (111,'makelifebetter','Focus pro','','2018-06-09',1.50),
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-09',1.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-08',1.50),
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-06',1.50),
+	 (111,'makelifebetter','Focus pro','Envoi contrat Ã  SilkHom + resa logement Ã  Venissieux','2018-06-07',1.50),
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-07',1.50),
+	 (118,'makelifebetter','libi','','2018-06-08',0.25),
+	 (118,'makelifebetter','libi','','2018-06-09',0.50),
+	 (3,'makelifebetter','transport','','2018-06-10',2.50),
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-10',1.50),
+	 (111,'makelifebetter','Focus pro','RÃ©vision notes entretien chez Jacquet + prise infos compl ','2018-06-10',1.50),
+	 (36,'makelifebetter','Perso','Check news','2018-06-10',1.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-11',1.50),
+	 (3,'makelifebetter','transport','Go Venissieux + Go cine','2018-06-12',5.50),
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-12',1.50),
+	 (12,'makelifebetter','ox / m','','2018-06-11',4.00),
+	 (3,'makelifebetter','transport','','2018-06-11',2.50),
+	 (111,'makelifebetter','Focus pro','Prep valises','2018-06-11',1.00),
+	 (111,'makelifebetter','Focus pro','Prep valises','2018-06-12',1.00),
+	 (51,'makelifebetter','Hobbies','Cine: ocean s 8','2018-06-12',2.00),
+	 (22,'makelifebetter','Shopping','','2018-06-12',0.50),
+	 (8,'makelifebetter','Sommeil','','2018-06-12',4.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (8,'makelifebetter','Sommeil','','2018-06-10',8.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-11',8.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-09',4.00),
+	 (8,'makelifebetter','Sommeil','','2018-06-17',5.50),
+	 (12,'makelifebetter','ox / m','','2018-06-16',4.00),
+	 (22,'makelifebetter','Shopping','Carrefour Market St Fons','2018-06-17',1.00),
+	 (51,'makelifebetter','Hobbies','Cine: ocean s 8','2018-06-16',2.00),
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-17',1.50),
+	 (22,'makelifebetter','Shopping','','2018-06-13',3.00),
+	 (22,'makelifebetter','Shopping','','2018-06-14',3.00);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (3,'makelifebetter','transport','','2018-06-13',3.00),
+	 (3,'makelifebetter','transport','','2018-06-14',3.00),
+	 (110,'makelifebetter','TimeWasted','','2018-06-15',6.00),
+	 (3,'makelifebetter','transport','','2018-06-16',3.00),
+	 (3,'makelifebetter','transport','','2018-06-17',3.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late!!','2018-06-13',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late!!','2018-06-14',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late!!','2018-06-15',2.00),
+	 (110,'makelifebetter','TimeWasted','Wk too late!!','2018-06-16',2.00),
+	 (111,'makelifebetter','Focus pro','Contact Jacquet et SilkHome pr deplacer dem mission','2018-06-15',1.50);
+INSERT INTO public."event" (id_act,login,libelle_activite,commentaire,"date",qteh) VALUES
+	 (36,'makelifebetter','Perso','think ab Dani','2018-06-16',1.50);
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+

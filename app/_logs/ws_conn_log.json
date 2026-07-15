@@ -1,0 +1,34 @@
+{"time":"2026-07-13T07:10:09.280506429Z","level":"INFO","msg":"Connected to Binance WebSocket"}
+{"time":"2026-07-13T07:10:09.58796407Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:09.89472124Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:09.895688574Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:09.913861096Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:09.985298819Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:10.816678845Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:11.019894777Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:11.740045098Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:12.159190922Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:12.557499295Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:12.752674859Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:13.172165335Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:13.377529425Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:13.669432057Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:13.671064071Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:13.812984974Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:13.813475745Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:14.027937366Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:14.091940488Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:14.504580753Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:14.653674936Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:14.654394989Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:14.912466304Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:15.416195584Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:15.456833154Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:15.457459419Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:15.465640739Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:16.44797653Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:16.856106778Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:16.915770291Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.00000000"}
+{"time":"2026-07-13T07:10:17.035130234Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-13T07:10:17.084012037Z","level":"INFO","msg":"asset price","BTCUSDT":"62840.01000000"}
+{"time":"2026-07-14T06:22:12.711164907Z","level":"INFO","msg":"go app is running"}

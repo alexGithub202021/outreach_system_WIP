@@ -7,7 +7,7 @@
   vars:
     project_path: /home/{{ ansible_user }}/go
     git_repo: "git@github.com:alexGithub202021/go.git"
-    docker_compose_file: docker-compose.prod.yml
+    docker_compose_file: docker-compose.yml
 
   tasks:
     - name: Update apt cache and upgrade

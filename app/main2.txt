@@ -1,0 +1,437 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"os"
+	"time"
+
+	// client "github.com/binance/binance-connector-go/clients/spot"
+	// "github.com/binance/binance-connector-go/clients/spot/src/websocketstreams/models"
+	// "github.com/binance/binance-connector-go/common/v2/common"
+
+	"github.com/gorilla/websocket"
+
+	_ "github.com/lib/pq"
+)
+
+func main() {
+
+	// log_path := "app/logs/redis.log"
+	// stdLog("-- start go api --\n", 1, log_path)
+
+	// if !loadEnv(log_path) {
+	// 	return
+	// }
+
+	// testPostgreConnection(log_path)
+	// test_parallel_exec(5, log_path)
+
+	// testRedis(log_path)
+	// testSleep(1800)
+	// AggTrade()
+
+	// Setup logger
+	logger := log.New(os.Stdout, "BTC Live Monitor: ", log.Ltime)
+
+	// Connect to Binance WebSocket
+	conn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		logger.Printf("Failed to connect: %v\n", err)
+		return
+	}
+	defer conn.Close()
+
+	logger.Println("Connected to Binance WebSocket")
+
+	// The subscription happens automatically because the URL includes the stream name.
+	// Format: "wss://stream.binance.com:9443/ws/{symbol}@ticker"
+
+	err = readStream(conn, logger)
+	if err != nil {
+		logger.Printf("Stream ended: %v\n", err)
+	}
+
+}
+
+// Standard connection settings for Binance
+var (
+	// wsURL      = "wss://stream.binance.com:9443/ws"
+	wsURL = "ws://stream.binance.com:9443/ws/btcusdt@ticker"
+	// btcSymbol  = "BTCUSDT"             // Bitcoin Perpetual Futures
+	// streamName = btcSymbol + "@ticker" // The 'ticker' stream gives live price info
+)
+
+func testSleep(dur int) {
+
+	duration := time.Duration(dur)
+
+	fmt.Println("Starting...")
+	time.Sleep(duration * time.Second) // Pause for 5 seconds
+	fmt.Println("Resuming...")
+}
+
+func stdLog(msg string, level int8, path string) {
+
+	m := make(map[int]string) // creates a map with string keys and integer values
+	m[1] = "INFO"
+	m[2] = "DEBUG"
+	m[3] = "WARN"
+	m[4] = "ERROR"
+
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Println("ERROR Failed to open log file:", err)
+		return
+	}
+	defer file.Close()
+
+	// Combine stdout and file into a single writer
+	multiWriter := io.MultiWriter(os.Stdout, file)
+
+	log.SetOutput(multiWriter)
+	log.Println(m[int(level)] + " " + msg)
+}
+
+// func testPostgreConnection(log_path string) {
+
+// 	// if !loadEnv(log_path) {
+// 	// 	return
+// 	// }
+
+// 	dbName, connString, res := connectPostgre(log_path)
+// 	if !res {
+// 		return
+// 	}
+
+// 	db, res := testConnection(connString, log_path, dbName)
+// 	if !res {
+// 		return
+// 	}
+
+// 	setConnectionPool(db)
+
+// 	defer db.Close()
+
+// 	rows, err, res := queryDb(log_path, db)
+// 	if !res {
+// 		return
+// 	}
+// 	defer rows.Close()
+
+// 	if !processRows(rows, log_path, err) {
+// 		return
+// 	}
+// }
+
+// func setConnectionPool(db *sql.DB) {
+// 	db.SetMaxIdleConns(25)
+// 	db.SetMaxOpenConns(100)
+// 	db.SetConnMaxLifetime(time.Hour)
+// }
+
+// func queryDb(log_path string, db *sql.DB) (*sql.Rows, error, bool) {
+
+// 	stdLog("--- Fetching users ---", 1, log_path)
+// 	selectQuery := `SELECT login, nom, email FROM "user" LIMIT 10`
+// 	// todo: test insert/update..
+
+// 	rows, err := db.Query(selectQuery)
+// 	if err != nil {
+// 		msg := fmt.Sprintf("Error querying users: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 		return nil, nil, false
+// 	}
+// 	return rows, err, true
+// }
+
+// func testConnection(connString string, log_path string, dbName string) (*sql.DB, bool) {
+// 	db, err := sql.Open("postgres", connString)
+// 	if err != nil {
+// 		msg := fmt.Sprintf("Error opening connection: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 		return nil, false
+// 	}
+
+// 	if err := db.Ping(); err != nil {
+// 		msg := fmt.Sprintf("Error pinging database: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 		return nil, false
+// 	}
+
+// 	stdLog("Successfully connected to database: "+dbName, 1, log_path)
+// 	return db, true
+// }
+
+// func connectPostgre(log_path string) (string, string, bool) {
+// 	dbHost := os.Getenv("DB_HOST")
+// 	dbPort := os.Getenv("DB_PORT")
+// 	dbUser := os.Getenv("DB_USER")
+// 	dbPass := os.Getenv("DB_PASS")
+// 	dbName := os.Getenv("DB_NAME")
+
+// 	stdLog("DB connection params -> DB_HOST: "+dbHost+" DB_PORT: "+dbPort+" DB_USER: "+dbUser+" DB_PASS: "+dbPass+" DB_NAME: "+dbName, 1, log_path)
+
+// 	if dbHost == "" || dbPort == "" || dbUser == "" || dbPass == "" || dbName == "" {
+// 		stdLog("Missing required database environment variables. Please set DB_HOST, DB_PORT, DB_USER, DB_PASS, and DB_NAME.", 4, log_path)
+// 		return "", "", false
+// 	}
+
+// 	connString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+// 		dbHost, dbPort, dbUser, dbPass, dbName)
+// 	return dbName, connString, true
+// }
+
+// func processRows(rows *sql.Rows, log_path string, err error) bool {
+// 	for rows.Next() {
+// 		var login string
+// 		var nom string
+// 		var email string
+
+// 		if err := rows.Scan(&login, &nom, &email); err != nil {
+// 			msg := fmt.Sprintf("Error scanning row: %v", err)
+// 			stdLog(msg, 4, log_path)
+// 			return false
+// 		}
+// 		msg := fmt.Sprintf("Login: %s, Name: %s, Email: %s", login, nom, email)
+// 		stdLog(msg, 1, log_path)
+
+// 	}
+
+// 	if err = rows.Err(); err != nil {
+// 		msg := fmt.Sprintf("Row iteration error: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 		return false
+// 	}
+// 	return true
+// }
+
+// func loadEnv(log_path string) bool {
+// 	err := godotenv.Load("app/config/.env")
+// 	if err != nil {
+// 		if err.Error() == "no such file or directory" {
+// 			stdLog("No .env file found. Continuing with defaults.", 4, log_path)
+// 			return false
+// 		} else {
+// 			msg := fmt.Sprintf("Failed to load .env file: %v", err)
+// 			stdLog(msg, 4, log_path)
+// 			return false
+// 		}
+// 	}
+// 	return true
+// }
+
+// func test_parallel_exec(threads_number int, log_path string) {
+// 	var wg sync.WaitGroup
+// 	for i := 0; i < threads_number; i++ {
+// 		wg.Add(1)
+// 		go worker(i+1, &wg, log_path)
+// 	}
+
+// 	// Wait for all goroutines to complete
+// 	wg.Wait()
+
+// 	fmt.Println("All workers completed")
+// }
+
+// func worker(id int, wg *sync.WaitGroup, log_path string) {
+// 	defer wg.Done()
+// 	msg1 := fmt.Sprintf("Worker %d started\n", id)
+// 	msg2 := fmt.Sprintf("Worker %d finished\n", id)
+// 	splitArray := strings.Split(log_path, ".")
+// 	path := fmt.Sprintf(splitArray[0], id, splitArray[1])
+// 	stdLog(msg1, 1, path)
+// 	testSleep(3)
+// 	stdLog(msg2, 1, path)
+// }
+
+// func testRedis(log_path string) {
+
+// 	var ctx = context.Background()
+
+// 	redis, res := connectRedis(ctx, log_path)
+// 	if !res {
+// 		return
+// 	}
+
+// 	// collectionName, jsonValue, err, shouldReturn := createJson(log_path)
+// 	// if !shouldReturn {
+// 	// 	stdLog("Error creating json:", 4, log_path)
+// 	// 	return
+// 	// }
+
+// 	// // Create redis collection
+// 	// err = redis.Set(ctx, collectionName, string(jsonValue), 0).Err()
+// 	// if err != nil {
+// 	// 	msg := fmt.Sprintf("Error creating collection: %v", err)
+// 	// 	stdLog(msg, 4, log_path)
+// 	// 	return
+// 	// }
+
+// 	collectionName := "my_collection"
+// 	if !getRedisCollection(ctx, redis, collectionName, log_path) {
+// 		return
+// 	}
+
+// }
+
+// func getRedisCollection(ctx context.Context, redis *redis.Client, collectionName string, log_path string) bool {
+
+// 	// stdLog("begin getRedisCollection", 1, log_path)
+
+// 	var retrievedMap string
+// 	retrievedMap, err := redis.Get(ctx, collectionName).Result()
+
+// 	if err != nil {
+// 		msg := fmt.Sprintf("Error retrieving value: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 		return false
+// 	}
+
+// 	var retrievedPairs map[string]string
+// 	err = json.Unmarshal([]byte(retrievedMap), &retrievedPairs)
+// 	if err != nil {
+// 		msg := fmt.Sprintf("Error unmarshalling JSON to map: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 	}
+
+// 	msg := fmt.Sprintf("Retrieved map: %v\n", retrievedPairs)
+// 	msg2 := fmt.Sprintf(" User ID: %s\n", retrievedPairs["user_id"])
+// 	msg3 := fmt.Sprintf(" Session ID: %s\n", retrievedPairs["session_id"])
+// 	msg4 := fmt.Sprintf(" Timeout: %s\n", retrievedPairs["timeout"])
+// 	stdLog(msg+msg2+msg3+msg4, 1, log_path)
+
+// 	return true
+// }
+
+// func createJson(log_path string) (string, []byte, error, bool) {
+
+// 	// stdLog("begin createjson", 1, log_path)
+
+// 	collectionName := "my_collection" // Choose a descriptive name
+// 	keyValuePairs := map[string]string{
+// 		"user_id":    "Alice",
+// 		"session_id": "12345",
+// 		"timeout":    "60",
+// 	}
+
+// 	jsonValue, err := json.Marshal(keyValuePairs)
+// 	if err != nil {
+// 		msg := fmt.Sprintf("Error marshalling JSON to map: %v", err)
+// 		stdLog(msg, 4, log_path)
+// 		return "", nil, nil, false
+// 	}
+
+// 	// stdLog("end createjson", 1, log_path)
+// 	return collectionName, jsonValue, err, true
+// }
+
+// func connectRedis(ctx context.Context, log_path string) (*redis.Client, bool) {
+
+// 	redisAdr := os.Getenv("REDIS_ADR")
+// 	client := redis.NewClient(&redis.Options{Addr: redisAdr})
+
+// 	pong, err := client.Ping(ctx).Result()
+// 	if err != nil {
+// 		return client, false
+// 	}
+
+// 	msg := fmt.Sprintf("Connected to Redis!! %v", pong)
+// 	stdLog(msg, 1, log_path)
+
+// 	return client, true
+// }
+
+// func testWebSockets() {
+
+// }
+
+// func AggTrade() {
+// 	configuration := common.NewConfigurationWebsocketStreams(
+// 		common.WithWsStreamsBasePath(common.SpotWebsocketStreamsProdUrl),
+// 	)
+
+// 	wsClient := client.NewBinanceSpotClient(
+// 		client.WithWebsocketStreams(configuration),
+// 	)
+
+// 	err := wsClient.WebsocketStreams.Connect([]string{})
+// 	if err != nil {
+// 		log.Fatalf("Error connecting to WebSocket: %v", err)
+// 	}
+
+// 	handler, err := wsClient.WebsocketStreams.WebSocketStreamsAPI.AggTrade().Symbol("bnbusdt").Execute()
+// 	if err != nil {
+// 		log.Fatalf("Error subscribing to stream: %v", err)
+// 	}
+
+// 	handler.On("message", func(message models.AggTradeResponse) {
+// 		b, _ := json.MarshalIndent(message, "", "  ")
+// 		log.Printf("Received message: %s\n", string(b))
+// 	})
+
+// 	log.Println("Subscribed. Waiting 10 seconds...")
+// 	time.Sleep(10 * time.Second)
+
+// 	log.Println("Unsubscribing from stream...")
+// 	handler.Unsubscribe()
+
+// 	log.Println("Closing WebSocket connection...")
+// 	err = wsClient.WebsocketStreams.CloseWebSocketStreamConnection()
+// 	if err != nil {
+// 		log.Fatalf("Error closing WebSocket connection: %v", err)
+// 	}
+// }
+
+func readStream(conn *websocket.Conn, logger *log.Logger) error {
+	for {
+		_, msg, err := conn.ReadMessage()
+		if err != nil {
+			// If connection is broken, try to reconnect
+			if websocket.IsCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				log.Println("Connection closed, attempting to reconnect in 3 seconds...")
+				time.Sleep(3 * time.Second)
+
+				var err error
+				conn, err = reconnect(conn)
+				if err != nil {
+					log.Printf("Failed to reconnect: %v. Stopping.\n", err)
+					return err
+				}
+				logger.Println("Reconnected successfully.")
+			}
+			return err
+		}
+
+		// Parse the JSON message
+		var data map[string]interface{}
+		if err := unmarshalMsg(msg, &data); err != nil {
+			continue // Skip malformed messages
+		}
+
+		// Extract relevant fields
+		p := data["P"].(float64) // Current price
+		c := data["c"].(float64) // Closing price
+		high := data["h"].(float64)
+		low := data["l"].(float64)
+		volume := data["v"].(float64)
+
+		logger.Printf("Price: %.8f | Vol: %.2f | High: %.8f | Low: %.8f | Close: %.8f", p, volume, high, low, c)
+	}
+}
+
+func reconnect(conn *websocket.Conn) (*websocket.Conn, error) {
+	// We must recreate the dial connection.
+	// Note: In a production app, you should add heartbeat logic here.
+	newConn, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
+	if err != nil {
+		return nil, err
+	}
+	return newConn, nil
+}
+
+func unmarshalMsg(msg []byte, data interface{}) error {
+	return json.Unmarshal(msg, data)
+}

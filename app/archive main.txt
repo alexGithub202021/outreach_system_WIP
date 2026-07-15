@@ -1,0 +1,243 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"io"
+	"log"
+	"log/slog"
+	"os"
+	"sync"
+	"time"
+
+	// logrus "github.com/sirupsen/logrus"
+
+	"github.com/joho/godotenv"
+
+	_ "github.com/lib/pq"
+)
+
+func archive_main() {
+
+	std_log("-- start go api --\n", 4, "app/logs/postgre_conn.log")
+
+	test1()
+
+}
+
+func test1() {
+	// x := 10
+	// y := 22
+	// z := x + y
+
+	// duration := strconv.Itoa(z)
+	// msg := fmt.Sprintf("The sum is: %s", duration)
+
+	// fmt.Println(msg)
+	// testStdLog(msg)
+	// testSlog()
+	// test_map()
+	// std_log(msg, 3)
+
+	test_parallel_exec(5)
+	testSleep(1800)
+	// test_postgre_connection()
+	// testSleep(1800)
+}
+
+// func testSleep(duration int) {
+func testSleep(dur int) {
+
+	duration := time.Duration(dur)
+
+	fmt.Println("Starting...")
+	time.Sleep(duration * time.Second) // Pause for 5 seconds
+	fmt.Println("Resuming...")
+}
+
+func testStdLog(msg string) {
+	file, _ := os.OpenFile("app/logs/app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+
+	// Combine stdout and file into a single writer
+	multiWriter := io.MultiWriter(os.Stdout, file)
+
+	log.SetOutput(multiWriter)
+	log.Println("INFO " + msg)
+}
+
+func testSlog() {
+	file, err := os.OpenFile("app/logs/slog.json", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		panic("Failed to open log file: " + err.Error())
+	}
+	defer file.Close()
+
+	// Pass the file to the JSON handler
+	logger := slog.New(slog.NewJSONHandler(file, nil))
+
+	// This writes structured JSON directly to app.json
+	logger.Info("User session initialized", slog.String("userId", "12345"))
+}
+
+func std_log(msg string, level int8, path string) {
+
+	m := make(map[int]string) // creates a map with string keys and integer values
+	m[1] = "INFO"
+	m[2] = "DEBUG"
+	m[3] = "WARN"
+	m[4] = "ERROR"
+
+	file, _ := os.OpenFile(path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+
+	// Combine stdout and file into a single writer
+	multiWriter := io.MultiWriter(os.Stdout, file)
+
+	log.SetOutput(multiWriter)
+	log.Println(m[int(level)] + " " + msg)
+}
+
+func test_map() {
+	m := make(map[int]string) // creates a map with string keys and integer values
+	m[1] = "one"
+	m[2] = "two"
+	fmt.Println(m[1])
+}
+
+func test_parallel_exec(threads_number int) {
+	var wg sync.WaitGroup
+	for i := 0; i < threads_number; i++ {
+		wg.Add(1)
+		go worker(i+1, &wg)
+	}
+
+	// Wait for all goroutines to complete
+	wg.Wait()
+
+	fmt.Println("All workers completed")
+}
+
+func worker(id int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	msg1 := fmt.Sprintf("Worker %d started\n", id)
+	msg2 := fmt.Sprintf("Worker %d finished\n", id)
+	path := fmt.Sprintf("app/logs/app%d.log", id)
+	std_log(msg1, 1, path)
+	testSleep(3)
+	std_log(msg2, 1, path)
+}
+
+func test_postgre_connection() {
+
+	log_path := "app/logs/postgre_conn.log"
+
+	// 1. Load .env file (if it exists)
+	// This reads the file into the current Process Envars
+	err := godotenv.Load("app/config/.env")
+	if err != nil {
+		// If .env doesn't exist, the error is "no such file",
+		// which is expected. You can check for that if needed.
+		if err.Error() == "no such file or directory" {
+			std_log("No .env file found. Continuing with defaults.", 4, log_path)
+			return
+		} else {
+			msg := fmt.Sprintf("Failed to load .env file: %v", err)
+			std_log(msg, 4, log_path)
+			return
+		}
+	}
+
+	std_log("DB connection params -> DB_HOST: "+os.Getenv("DB_HOST")+" DB_PORT: "+os.Getenv("DB_PORT")+" DB_USER: "+os.Getenv("DB_USER")+" DB_PASS: "+os.Getenv("DB_PASS")+" DB_NAME: "+os.Getenv("DB_NAME"), 1, log_path)
+
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbName := os.Getenv("DB_NAME")
+	// sslmode := os.Getenv("DB_SSLMODE") // "disable" is the default if env is missing
+
+	if dbHost == "" || dbPort == "" || dbUser == "" || dbPass == "" || dbName == "" {
+		std_log("Missing required database environment variables. Please set DB_HOST, DB_PORT, DB_USER, DB_PASS, and DB_NAME.", 4, log_path)
+	}
+
+	// Construct the connection string dynamically
+	connString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s",
+		dbHost, dbPort, dbUser, dbPass, dbName)
+
+	db, err := sql.Open("postgres", connString)
+	if err != nil {
+		msg := fmt.Sprintf("Error opening connection: %v", err)
+		std_log(msg, 4, log_path)
+		return
+	}
+
+	// // 2. Verify the connection
+	// if err := db.Ping(); err != nil {
+	// 	msg := fmt.Sprintf("Error pinging database: %v", err)
+	// 	std_log(msg, 4, log_path)
+	// }
+
+	_, err = db.Exec("SELECT 1")
+	if err != nil {
+		msg := fmt.Sprintf("Database connection failed: %v", err)
+		std_log(msg, 4, log_path)
+		// Do NOT return err yet, try to reconnect (see Approach B)
+		db.Close()
+		return
+	}
+
+	// Optional: Set connection pool settings
+	db.SetMaxIdleConns(25)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxLifetime(time.Hour)
+
+	defer db.Close()
+
+	std_log("Successfully connected to database: "+dbName, 1, log_path)
+
+	// --- Example Query: Fetch Data ---
+	std_log("--- Fetching users ---", 1, log_path)
+	selectQuery := `SELECT * FROM user LIMIT 10`
+
+	rows, err := db.Query(selectQuery)
+	if err != nil {
+		msg := fmt.Sprintf("Error querying users: %v", err)
+		std_log(msg, 4, log_path)
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var name string
+		var email string
+
+		if err := rows.Scan(&id, &name, &email); err != nil {
+			msg := fmt.Sprintf("Error scanning row: %v", err)
+			std_log(msg, 4, log_path)
+			return
+		}
+		msg := fmt.Sprintf("ID: %d, Name: %s, Email: %s\n", id, name, email)
+		std_log(msg, 1, log_path)
+
+	}
+
+	if err = rows.Err(); err != nil {
+		msg := fmt.Sprintf("Row iteration error: %v", err)
+		std_log(msg, 4, log_path)
+		return
+	}
+
+}
+
+// func testTestLogrus() {
+// 	file, err := os.OpenFile("app/logs/logrus.json", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+// 	if err != nil {
+// 		panic("Failed to open log file: " + err.Error())
+// 	}
+// 	defer file.Close()
+
+// 	logrus.WithFields(logrus.Fields{
+// 		"test":   "logrus",
+// 		"number": 1,
+// 	}).Info("test logrus")
+// }

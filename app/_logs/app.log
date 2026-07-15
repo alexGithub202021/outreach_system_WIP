@@ -1,0 +1,15 @@
+2026/07/03 19:16:35 This goes to both the terminal and the file!
+2026/07/03 19:31:36 INFO This goes to both the terminal and the file!
+2026/07/03 19:39:11 INFO This goes to both the terminal and the file!
+2026/07/03 19:39:57 The sum is:%!(EXTRA int=18)
+2026/07/03 19:46:44 INFOThe sum is: %!(EXTRA string=18)
+2026/07/03 19:47:40 INFOThe sum is: 18
+2026/07/03 19:56:27 INFO The sum is: 18
+2026/07/04 02:58:23 INFO The sum is: 18
+2026/07/03 20:00:07 INFO The sum is: 18
+2026/07/04 03:00:22 INFO The sum is: 18
+2026/07/04 03:01:26 INFO The sum is: 18
+2026/07/04 03:01:28 INFO The sum is: 18
+2026/07/04 03:01:29 INFO The sum is: 18
+2026/07/04 17:22:50 INFO The sum is: 18
+2026/07/04 17:23:25 ERROR The sum is: 32

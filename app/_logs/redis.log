@@ -1,0 +1,131 @@
+2026/07/09 07:53:27 INFO -- start go api --
+
+2026/07/09 07:53:27 INFO Connected to Redis!! PONG
+2026/07/09 07:56:52 INFO -- start go api --
+
+2026/07/09 07:56:52 INFO Connected to Redis!! PONG
+2026/07/09 07:56:52 INFO after testredis
+2026/07/09 07:58:15 INFO -- start go api --
+
+2026/07/09 07:58:15 INFO Connected to Redis!! PONG
+2026/07/09 07:58:15 INFO begin createjson
+2026/07/09 07:58:15 INFO end createjson
+2026/07/09 08:02:12 INFO -- start go api --
+
+2026/07/09 08:02:12 INFO Connected to Redis!! PONG
+2026/07/09 08:02:12 INFO begin createjson
+2026/07/09 08:02:12 INFO end createjson
+2026/07/09 08:02:12 INFO begin getRedisCollection
+2026/07/09 08:02:12 INFO Retrieved map:: map[session_id:12345 timeout:60 user_id:Alice]
+2026/07/09 08:07:16 INFO -- start go api --
+
+2026/07/09 08:07:16 INFO Connected to Redis!! PONG
+2026/07/09 08:07:16 INFO begin createjson
+2026/07/09 08:07:16 INFO end createjson
+2026/07/09 08:07:16 INFO begin getRedisCollection
+2026/07/09 08:07:16 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice] User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:09:25 INFO -- start go api --
+
+2026/07/09 08:09:25 INFO Connected to Redis!! PONG
+2026/07/09 08:09:25 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:12:33 INFO -- start go api --
+
+2026/07/09 08:12:33 INFO Connected to Redis!! PONG
+2026/07/09 08:12:33 ERROR Error retrieving value: redis: nil
+2026/07/09 08:20:00 INFO -- start go api --
+
+2026/07/09 08:20:00 INFO Connected to Redis!! PONG
+2026/07/09 08:20:00 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:22:31 INFO -- start go api --
+
+2026/07/09 08:22:31 INFO Connected to Redis!! PONG
+2026/07/09 08:22:31 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:22:57 INFO -- start go api --
+
+2026/07/09 08:22:57 INFO Connected to Redis!! PONG
+2026/07/09 08:22:57 ERROR Error retrieving value: redis: nil
+2026/07/09 08:24:59 INFO -- start go api --
+
+2026/07/09 08:24:59 INFO Connected to Redis!! PONG
+2026/07/09 08:24:59 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:25:58 INFO -- start go api --
+
+2026/07/09 08:25:58 INFO Connected to Redis!! PONG
+2026/07/09 08:25:58 ERROR Error retrieving value: redis: nil
+2026/07/09 08:42:56 INFO -- start go api --
+
+2026/07/09 08:42:56 INFO Connected to Redis!! PONG
+2026/07/09 08:42:56 ERROR Error retrieving value: redis: nil
+2026/07/09 08:43:41 INFO -- start go api --
+
+2026/07/09 08:43:41 INFO Connected to Redis!! PONG
+2026/07/09 08:43:41 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:45:12 INFO -- start go api --
+
+2026/07/09 08:45:12 INFO Connected to Redis!! PONG
+2026/07/09 08:45:12 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 08:49:32 INFO -- start go api --
+
+2026/07/09 08:49:32 INFO Connected to Redis!! PONG
+2026/07/09 08:49:32 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 09:05:29 INFO -- start go api --
+
+2026/07/09 09:05:50 INFO -- start go api --
+
+2026/07/09 09:05:50 INFO Connected to Redis!! PONG
+2026/07/09 09:05:50 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 09:07:46 INFO -- start go api --
+
+2026/07/09 09:08:03 INFO -- start go api --
+
+2026/07/09 09:08:03 INFO Connected to Redis!! PONG
+2026/07/09 09:08:03 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 09:08:27 INFO -- start go api --
+
+2026/07/09 09:08:27 INFO Connected to Redis!! PONG
+2026/07/09 09:08:27 INFO Retrieved map: map[session_id:12345 timeout:60 user_id:Alice]
+ User ID: Alice
+ Session ID: 12345
+ Timeout: 60
+
+2026/07/09 14:53:47 INFO -- start go api --
+

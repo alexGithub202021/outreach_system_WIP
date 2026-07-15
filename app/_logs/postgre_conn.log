@@ -1,0 +1,246 @@
+2026/07/04 14:19:28 INFO DB_HOST: localhost
+2026/07/04 14:19:28 INFO DB_HOST: localhost
+2026/07/04 14:19:28 ERROR Error pinging database: pq: wrong value for "sslmode": "%!s(MISSING)" is not supported; supported values are disable, allow, prefer, require, verify-full, or verify-ca
+2026/07/04 14:22:14 INFO DB_HOST: localhost DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:22:14 ERROR Error pinging database: dial tcp [::1]:5433: connect: connection refused
+2026/07/04 14:23:42 INFO DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:23:42 ERROR Error pinging database: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:31:03 INFO DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:31:03 INFO Successfully connected to database: tm
+2026/07/04 14:31:03 INFO 
+--- Fetching users ---
+2026/07/04 14:31:03 ERROR Error querying users: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:32:11 INFO DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:32:11 INFO Successfully connected to database: tm
+2026/07/04 14:32:11 INFO 
+--- Fetching users ---
+2026/07/04 14:32:11 ERROR Error querying users: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:33:47 INFO DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:33:47 INFO Successfully connected to database: tm
+2026/07/04 14:33:47 INFO --- Fetching users ---
+2026/07/04 14:33:47 ERROR Error querying users: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:40:38 INFO DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:40:38 ERROR Database connection failed: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:40:38 INFO Successfully connected to database: tm
+2026/07/04 14:40:38 INFO --- Fetching users ---
+2026/07/04 14:40:38 ERROR Error querying users: sql: database is closed
+2026/07/04 14:52:40 INFO /nDB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:52:40 ERROR Database connection failed: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:52:40 INFO Successfully connected to database: tm
+2026/07/04 14:52:40 INFO --- Fetching users ---
+2026/07/04 14:52:40 ERROR Error querying users: sql: database is closed
+2026/07/04 14:55:04 INFO 
+DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:55:04 ERROR Database connection failed: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:58:31 INFO 
+DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:58:31 ERROR Database connection failed: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 14:58:59 ERROR -- start go api --
+
+2026/07/04 14:58:59 INFO DB_HOST: 127.0.0.1 DB_PORT: 5433 DB_USER: admin
+2026/07/04 14:58:59 ERROR Database connection failed: dial tcp 127.0.0.1:5433: connect: connection refused
+2026/07/04 15:07:05 ERROR -- start go api --
+
+2026/07/04 15:07:05 INFO DB connection params -> DB_HOST: db DB_PORT: 5433 DB_USER: admin
+2026/07/04 15:07:05 ERROR Database connection failed: dial tcp 172.21.0.3:5433: connect: connection refused
+2026/07/04 15:11:42 ERROR -- start go api --
+
+2026/07/04 15:11:42 INFO DB connection params -> DB_HOST: db DB_PORT: 5433 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:11:42 ERROR Database connection failed: dial tcp 172.21.0.3:5433: connect: connection refused
+2026/07/04 15:16:53 ERROR -- start go api --
+
+2026/07/04 15:16:53 INFO DB connection params -> DB_HOST: db DB_PORT: 5433 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:16:53 ERROR Error pinging database: dial tcp 172.21.0.3:5433: connect: connection refused
+2026/07/04 15:20:22 ERROR -- start go api --
+
+2026/07/04 15:20:22 INFO DB connection params -> DB_HOST: db DB_PORT: 5433 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:20:22 ERROR Error pinging database: dial tcp 172.21.0.3:5433: connect: connection refused
+2026/07/04 15:21:51 ERROR -- start go api --
+
+2026/07/04 15:21:51 INFO DB connection params -> DB_HOST: db DB_PORT: 5433 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:21:51 ERROR Error pinging database: dial tcp 172.21.0.3:5433: connect: connection refused
+2026/07/04 15:22:12 ERROR -- start go api --
+
+2026/07/04 15:22:12 INFO DB connection params -> DB_HOST: db DB_PORT: 5433 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:22:12 ERROR Error pinging database: dial tcp 172.21.0.3:5433: connect: connection refused
+2026/07/04 15:23:58 ERROR -- start go api --
+
+2026/07/04 15:23:58 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:23:58 INFO Successfully connected to database: tm
+2026/07/04 15:23:58 INFO --- Fetching users ---
+2026/07/04 15:23:58 ERROR Error scanning row: sql: expected 1 destination arguments in Scan, not 3
+2026/07/04 15:28:19 ERROR -- start go api --
+
+2026/07/04 15:28:19 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:28:19 INFO Successfully connected to database: tm
+2026/07/04 15:28:19 INFO --- Fetching users ---
+2026/07/04 15:28:19 ERROR Error querying users: pq: column "login" does not exist at column 8 (42703)
+2026/07/04 15:35:28 ERROR -- start go api --
+
+2026/07/04 15:35:28 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 15:35:28 INFO Successfully connected to database: tm
+2026/07/04 15:35:28 INFO --- Fetching users ---
+2026/07/04 15:35:28 INFO Login: adminAb, Name: admin, Email: administrateur@gmail.com
+
+2026/07/04 15:35:28 INFO Login: Annette, Name: Robez-Preux, Email: annerobez@gmail.com
+
+2026/07/04 15:35:28 INFO Login: artofdisco, Name: Faham, Email: yannick.faham@gmail.com
+
+2026/07/04 15:35:28 INFO Login: CS, Name: Visiteur, Email: New@gmail.com
+
+2026/07/04 15:35:28 INFO Login: ejpgsbdhusq, Name: ejpgsbdhusq, Email: prwtuh@tgteka.com
+
+2026/07/04 15:35:28 INFO Login: gras, Name: Gras, Email: dany.gras@feuille.com
+
+2026/07/04 15:35:28 INFO Login: griss, Name: rolts, Email: rolts.griss@gmail.com
+
+2026/07/04 15:35:28 INFO Login: ingesup, Name: ingesup, Email: ingesup@gmail.com
+
+2026/07/04 15:35:28 INFO Login: jul, Name: Nguyen, Email: julien.nguye34@gmail.com
+
+2026/07/04 15:35:28 INFO Login: l0rent, Name: de nil, Email: laurent.denil@gmail.com
+
+2026/07/04 16:03:58 ERROR -- start go api --
+
+2026/07/04 16:03:58 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 16:03:58 INFO Successfully connected to database: tm
+2026/07/04 16:03:58 INFO --- Fetching users ---
+2026/07/04 16:03:58 INFO Login: adminAb, Name: admin, Email: administrateur@gmail.com
+
+2026/07/04 16:03:58 INFO Login: Annette, Name: Robez-Preux, Email: annerobez@gmail.com
+
+2026/07/04 16:03:58 INFO Login: artofdisco, Name: Faham, Email: yannick.faham@gmail.com
+
+2026/07/04 16:03:58 INFO Login: CS, Name: Visiteur, Email: New@gmail.com
+
+2026/07/04 16:03:58 INFO Login: ejpgsbdhusq, Name: ejpgsbdhusq, Email: prwtuh@tgteka.com
+
+2026/07/04 16:03:58 INFO Login: gras, Name: Gras, Email: dany.gras@feuille.com
+
+2026/07/04 16:03:58 INFO Login: griss, Name: rolts, Email: rolts.griss@gmail.com
+
+2026/07/04 16:03:58 INFO Login: ingesup, Name: ingesup, Email: ingesup@gmail.com
+
+2026/07/04 16:03:58 INFO Login: jul, Name: Nguyen, Email: julien.nguye34@gmail.com
+
+2026/07/04 16:03:58 INFO Login: l0rent, Name: de nil, Email: laurent.denil@gmail.com
+
+2026/07/04 16:07:18 ERROR -- start go api --
+
+2026/07/04 16:07:18 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 16:07:18 INFO Successfully connected to database: tm
+2026/07/04 16:07:18 INFO --- Fetching users ---
+2026/07/04 16:07:18 INFO Login: adminAb, Name: admin, Email: administrateur@gmail.com
+
+2026/07/04 16:07:18 INFO Login: Annette, Name: Robez-Preux, Email: annerobez@gmail.com
+
+2026/07/04 16:07:18 INFO Login: artofdisco, Name: Faham, Email: yannick.faham@gmail.com
+
+2026/07/04 16:07:18 INFO Login: CS, Name: Visiteur, Email: New@gmail.com
+
+2026/07/04 16:07:18 INFO Login: ejpgsbdhusq, Name: ejpgsbdhusq, Email: prwtuh@tgteka.com
+
+2026/07/04 16:07:18 INFO Login: gras, Name: Gras, Email: dany.gras@feuille.com
+
+2026/07/04 16:07:18 INFO Login: griss, Name: rolts, Email: rolts.griss@gmail.com
+
+2026/07/04 16:07:18 INFO Login: ingesup, Name: ingesup, Email: ingesup@gmail.com
+
+2026/07/04 16:07:18 INFO Login: jul, Name: Nguyen, Email: julien.nguye34@gmail.com
+
+2026/07/04 16:07:18 INFO Login: l0rent, Name: de nil, Email: laurent.denil@gmail.com
+
+2026/07/04 16:28:54 ERROR -- start go api --
+
+2026/07/04 16:28:54 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 16:28:54 INFO Successfully connected to database: tm
+2026/07/04 16:28:54 INFO --- Fetching users ---
+2026/07/04 16:31:11 ERROR -- start go api --
+
+2026/07/04 16:31:11 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 16:31:11 INFO Successfully connected to database: tm
+2026/07/04 16:31:11 INFO --- Fetching users ---
+2026/07/04 16:31:11 INFO Login: adminAb, Name: admin, Email: administrateur@gmail.com
+2026/07/04 16:31:11 INFO Login: Annette, Name: Robez-Preux, Email: annerobez@gmail.com
+2026/07/04 16:31:11 INFO Login: artofdisco, Name: Faham, Email: yannick.faham@gmail.com
+2026/07/04 16:31:11 INFO Login: CS, Name: Visiteur, Email: New@gmail.com
+2026/07/04 16:31:11 INFO Login: ejpgsbdhusq, Name: ejpgsbdhusq, Email: prwtuh@tgteka.com
+2026/07/04 16:31:11 INFO Login: gras, Name: Gras, Email: dany.gras@feuille.com
+2026/07/04 16:31:11 INFO Login: griss, Name: rolts, Email: rolts.griss@gmail.com
+2026/07/04 16:31:11 INFO Login: ingesup, Name: ingesup, Email: ingesup@gmail.com
+2026/07/04 16:31:11 INFO Login: jul, Name: Nguyen, Email: julien.nguye34@gmail.com
+2026/07/04 16:31:11 INFO Login: l0rent, Name: de nil, Email: laurent.denil@gmail.com
+2026/07/04 16:33:50 ERROR -- start go api --
+
+2026/07/04 16:33:50 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 16:33:50 INFO Successfully connected to database: tm
+2026/07/04 16:33:50 INFO --- Fetching users ---
+2026/07/04 16:33:50 INFO Login: adminAb, Name: admin, Email: administrateur@gmail.com
+2026/07/04 16:33:50 INFO Login: Annette, Name: Robez-Preux, Email: annerobez@gmail.com
+2026/07/04 16:33:50 INFO Login: artofdisco, Name: Faham, Email: yannick.faham@gmail.com
+2026/07/04 16:33:50 INFO Login: CS, Name: Visiteur, Email: New@gmail.com
+2026/07/04 16:33:50 INFO Login: ejpgsbdhusq, Name: ejpgsbdhusq, Email: prwtuh@tgteka.com
+2026/07/04 16:33:50 INFO Login: gras, Name: Gras, Email: dany.gras@feuille.com
+2026/07/04 16:33:50 INFO Login: griss, Name: rolts, Email: rolts.griss@gmail.com
+2026/07/04 16:33:50 INFO Login: ingesup, Name: ingesup, Email: ingesup@gmail.com
+2026/07/04 16:33:50 INFO Login: jul, Name: Nguyen, Email: julien.nguye34@gmail.com
+2026/07/04 16:33:50 INFO Login: l0rent, Name: de nil, Email: laurent.denil@gmail.com
+2026/07/04 16:47:43 ERROR -- start go api --
+
+2026/07/04 16:47:43 INFO DB connection params -> DB_HOST: db DB_PORT: 5432 DB_USER: admin DB_PASS: pwd DB_NAME: tm
+2026/07/04 16:47:43 INFO Successfully connected to database: tm
+2026/07/04 16:47:43 INFO --- Fetching users ---
+2026/07/04 16:47:43 INFO Login: adminAb, Name: admin, Email: administrateur@gmail.com
+2026/07/04 16:47:43 INFO Login: Annette, Name: Robez-Preux, Email: annerobez@gmail.com
+2026/07/04 16:47:43 INFO Login: artofdisco, Name: Faham, Email: yannick.faham@gmail.com
+2026/07/04 16:47:43 INFO Login: CS, Name: Visiteur, Email: New@gmail.com
+2026/07/04 16:47:43 INFO Login: ejpgsbdhusq, Name: ejpgsbdhusq, Email: prwtuh@tgteka.com
+2026/07/04 16:47:43 INFO Login: gras, Name: Gras, Email: dany.gras@feuille.com
+2026/07/04 16:47:43 INFO Login: griss, Name: rolts, Email: rolts.griss@gmail.com
+2026/07/04 16:47:43 INFO Login: ingesup, Name: ingesup, Email: ingesup@gmail.com
+2026/07/04 16:47:43 INFO Login: jul, Name: Nguyen, Email: julien.nguye34@gmail.com
+2026/07/04 16:47:43 INFO Login: l0rent, Name: de nil, Email: laurent.denil@gmail.com
+2026/07/08 09:30:01 ERROR -- start go api --
+
+2026/07/09 06:05:41 ERROR -- start go api --
+
+2026/07/09 06:15:04 ERROR -- start go api --
+
+2026/07/09 06:17:33 ERROR -- start go api --
+
+2026/07/09 06:24:33 ERROR -- start go api --
+
+2026/07/09 06:25:20 ERROR -- start go api --
+
+2026/07/09 06:46:50 ERROR -- start go api --
+
+2026/07/09 06:48:33 ERROR -- start go api --
+
+2026/07/09 06:53:07 ERROR -- start go api --
+
+2026/07/09 06:55:42 ERROR -- start go api --
+
+2026/07/09 07:00:39 ERROR -- start go api --
+
+2026/07/09 07:02:52 ERROR -- start go api --
+
+2026/07/09 07:04:30 ERROR -- start go api --
+
+2026/07/09 07:09:19 ERROR -- start go api --
+
+2026/07/09 07:10:41 ERROR -- start go api --
+
+2026/07/09 07:17:21 ERROR -- start go api --
+
+2026/07/09 07:18:33 ERROR -- start go api --
+
+2026/07/09 07:27:41 ERROR -- start go api --
+
+2026/07/09 07:29:38 ERROR -- start go api --
+
+2026/07/09 07:30:32 ERROR -- start go api --
+
+2026/07/09 07:33:29 INFO -- start go api --
+
+2026/07/09 07:35:12 INFO -- start go api --
+
