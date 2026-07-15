@@ -1,4 +1,4 @@
-package slog
+package lib
 
 import (
 	"io"
