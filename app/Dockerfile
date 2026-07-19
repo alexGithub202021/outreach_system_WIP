@@ -13,7 +13,7 @@ COPY . .
 # CGO disabled (modernc.org/sqlite is pure Go) and cross-compiled for the
 # Lambda Graviton (arm64) runtime. The binary MUST be named "bootstrap" so
 # the provided.al2023 base image picks it up as the Lambda entrypoint.
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bootstrap .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o bootstrap .
 
 # ---- Final Lambda image ---------------------------------------------------
 FROM public.ecr.aws/lambda/provided:al2023
