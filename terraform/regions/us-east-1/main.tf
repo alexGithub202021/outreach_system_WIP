@@ -46,6 +46,13 @@ resource "aws_ecr_lifecycle_policy" "app" {
 # ---------------------------------------------------------------------------
 # S3 bucket holding the SQLite DB and prospects CSV
 # ---------------------------------------------------------------------------
+# Import block adopts the bucket if it already exists (created by a prior
+# run), so apply is idempotent instead of failing with BucketAlreadyExists.
+import {
+  to = aws_s3_bucket.app
+  id = var.s3_bucket_name
+}
+
 resource "aws_s3_bucket" "app" {
   bucket = var.s3_bucket_name
 }
@@ -76,6 +83,11 @@ data "aws_iam_policy_document" "lambda_assume" {
       identifiers = ["lambda.amazonaws.com"]
     }
   }
+}
+
+import {
+  to = aws_iam_role.lambda
+  id = "${var.ecr_repo_name}-lambda-role"
 }
 
 resource "aws_iam_role" "lambda" {
@@ -141,6 +153,11 @@ data "aws_iam_policy_document" "scheduler_assume" {
       identifiers = ["scheduler.amazonaws.com"]
     }
   }
+}
+
+import {
+  to = aws_iam_role.scheduler
+  id = "${var.ecr_repo_name}-scheduler-role"
 }
 
 resource "aws_iam_role" "scheduler" {
