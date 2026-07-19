@@ -95,20 +95,25 @@ jobs:
 
       # -------------------------------------------------
       - name: Terraform Init
-        run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} init
+        working-directory: terraform/regions/${{ matrix.region }}
+        run: terraform init
 
       # -------------------------------------------------
       - name: Terraform Validate
-        run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} validate
+        working-directory: terraform/regions/${{ matrix.region }}
+        run: terraform validate
 
       # -------------------------------------------------
       - name: Terraform Plan
-        run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} plan -out=tfplan \
-          -var="aws_region=${{ matrix.region }}" \
-          -var="image_tag=$GITHUB_SHA" \
-          -var="zoho_pwd=${{ secrets.ZOHO_PWD }}" \
-          -var-file=${GITHUB_WORKSPACE}/terraform/env/dev.tfvars
+        working-directory: terraform/regions/${{ matrix.region }}
+        run: |
+          terraform plan -out=tfplan \
+            -var="aws_region=${{ matrix.region }}" \
+            -var="image_tag=$GITHUB_SHA" \
+            -var="zoho_pwd=${{ secrets.ZOHO_PWD }}" \
+            -var-file=${GITHUB_WORKSPACE}/terraform/env/dev.tfvars
 
       # -------------------------------------------------
       - name: Terraform Apply
-        run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} apply -auto-approve tfplan
+        working-directory: terraform/regions/${{ matrix.region }}
+        run: terraform apply -auto-approve tfplan
