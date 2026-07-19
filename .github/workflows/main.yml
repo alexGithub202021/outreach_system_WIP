@@ -40,7 +40,8 @@ jobs:
       - name: Login to Amazon ECR
         id: ecr
         run: |
-          REGISTRY=$(aws ecr describe-registry --query 'registryUri' --output text)
+          ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+          REGISTRY="${ACCOUNT}.dkr.ecr.${{ matrix.region }}.amazonaws.com"
           echo "registry=$REGISTRY" >> "$GITHUB_OUTPUT"
           aws ecr get-login-password --region ${{ matrix.region }} \
             | docker login --username AWS --password-stdin "$REGISTRY"
