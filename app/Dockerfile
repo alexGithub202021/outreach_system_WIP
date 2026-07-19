@@ -16,7 +16,11 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o bootstrap .
 
 # ---- Final Lambda image ---------------------------------------------------
-FROM public.ecr.aws/lambda/provided:al2023
+# Pin to linux/arm64 explicitly so buildx pulls the arm64 base image even when
+# building on an amd64 runner. Otherwise the amd64 base is fetched and paired
+# with the arm64 bootstrap binary, producing an image Lambda rejects
+# ("image manifest, config or layer media type is not supported").
+FROM --platform=linux/arm64 public.ecr.aws/lambda/provided:al2023
 
 COPY --from=builder /app/bootstrap ${LAMBDA_RUNTIME_DIR}/bootstrap
 

@@ -62,6 +62,8 @@ jobs:
           docker buildx build \
             --platform linux/arm64 \
             --no-cache \
+            --sbom=false \
+            --provenance=false \
             -t "$IMAGE:$GITHUB_SHA" \
             -t "$IMAGE:latest" \
             --push \
