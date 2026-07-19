@@ -1,1 +1,23 @@
 *DS_Store
+
+# Secrets / local config — never commit
+app/config/.env
+**/.env
+
+# Build artifacts
+app/myapp
+app/bootstrap
+
+# Local logs / junk / data dirs — not part of source
+app/logs/
+app/_logs/
+app/archives/
+SQLite/
+pgdata/
+redis/
+db_dump/
+prospects.csv
+
+# Editor / tooling
+.vscode/
+.kilo/

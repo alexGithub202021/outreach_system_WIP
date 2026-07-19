@@ -1,9 +1,14 @@
-output "instance_public_ip" {
-  description = "Public IP of the EC2 instance"
-  value = length(data.aws_instances.existing.ids) > 0 ? data.aws_instances.existing.public_ips[0] : aws_instance.app[0].public_ip
+output "lambda_function_name" {
+  description = "Name of the provisioned Lambda function"
+  value       = aws_lambda_function.app.function_name
 }
 
-output "instance_id" {
-  description = "ID of the EC2 instance"
-  value = length(data.aws_instances.existing.ids) > 0 ? data.aws_instances.existing.ids[0] : aws_instance.app[0].id 
+output "ecr_repository_url" {
+  description = "URL of the ECR repository hosting the Lambda image"
+  value       = aws_ecr_repository.app.repository_url
+}
+
+output "s3_bucket_name" {
+  description = "Name of the S3 bucket holding app data"
+  value       = aws_s3_bucket.app.bucket
 }

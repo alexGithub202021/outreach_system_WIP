@@ -3,32 +3,65 @@ variable "aws_region" {
   type        = string
 }
 
-variable "ami_id" {
-  description = "AMI ID (ubuntu)"
+variable "image_tag" {
+  description = "ECR image tag to deploy (e.g. git SHA)"
   type        = string
 }
 
-variable "instance_type" {
-  description = "EC2 instance type - ARM based, 2GB RAM"
+variable "s3_bucket_name" {
+  description = "Name of the S3 bucket holding the SQLite DB and prospects CSV"
   type        = string
 }
 
-variable "key_name" {
-  description = "Existing EC2 key pair name"
+variable "ecr_repo_name" {
+  description = "Name of the ECR repository (and Lambda function name)"
   type        = string
 }
 
-variable "security_group_id" {
-  description = "Existing security group ID"
-  type        = string
+variable "lambda_timeout" {
+  description = "Lambda timeout in seconds"
+  type        = number
+  default     = 120
 }
 
-# variable "subnet_id" {
-#   description = "Existing subnet ID"
-#   type        = string
-# }
+variable "lambda_memory" {
+  description = "Lambda memory size in MB"
+  type        = number
+  default     = 256
+}
 
-variable "instance_name" {
-  description = "Tag name for the EC2 instance"
+variable "db_s3_key" {
+  description = "S3 object key for the SQLite DB"
   type        = string
+  default     = "mydata.db"
+}
+
+variable "csv_s3_key" {
+  description = "S3 object key for the prospects CSV"
+  type        = string
+  default     = "prospects.csv"
+}
+
+variable "sender" {
+  description = "SMTP sender address (non-secret; default in dev.tfvars)"
+  type        = string
+  default     = "modernization@steadypartner.online"
+}
+
+variable "zoho_pwd" {
+  description = "Zoho SMTP password (SECRET — supplied via GitHub secret / -var)"
+  type        = string
+  sensitive   = true
+}
+
+variable "smtp_host" {
+  description = "SMTP host (non-secret; default in dev.tfvars)"
+  type        = string
+  default     = "smtp.zoho.com"
+}
+
+variable "smtp_port" {
+  description = "SMTP port (non-secret; default in dev.tfvars)"
+  type        = string
+  default     = "465"
 }

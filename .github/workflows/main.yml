@@ -1,4 +1,4 @@
-name: Test and deploy
+name: Build, push and deploy
 
 on:
   push:
@@ -9,60 +9,24 @@ on:
       - "README.md"
 
 jobs:
-  # Job 1: Run unit tests
-  # UT:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     # -------------------------------------------------
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-
-  #     # -------------------------------------------------
-  #     - name: Build and start containers
-  #       run: docker compose -f docker-compose.test.yml up -d --build db python
-
-  #     # -------------------------------------------------
-  #     - name: Wait for DB readiness
-  #       run: |
-  #         for i in {1..10}; do
-  #           docker exec postgres16 pg_isready -U admin && break
-  #           echo "waiting for db..."
-  #           sleep 3
-  #         done
-
-  #     # -------------------------------------------------
-  #     - name: Run unit tests
-  #       run: docker exec python poetry run pytest -v
-
-  #     # -------------------------------------------------
-  #     - name: Tear down
-  #       if: always()
-  #       run: docker compose -f docker-compose.test.yml down -v
-
-  # Job 2: Provision Infrastructure with Terraform
-  terraform:
-    # needs: UT
-    name: Provision Infrastructure for ${{ matrix.region }}
+  # Build the Lambda container image, push it to ECR, then provision
+  # infrastructure (Lambda / S3 / ECR / IAM / EventBridge) with Terraform.
+  deploy:
+    name: Build & deploy for ${{ matrix.region }}
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        region: [us-east-1] # add or remove as needed, xpl: [us-east-1, eu-west-1, ap-southeast-1]
-      fail-fast: false # continue other regions even if one fails
+        region: [us-east-1]
+      fail-fast: false
 
-    defaults:
-      run:
-        working-directory: ./terraform
+    env:
+      ECR_REPO_NAME: prospect-mailer
 
     steps:
       # -------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      # -------------------------------------------------
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
 
       # -------------------------------------------------
       - name: Configure AWS Credentials
@@ -71,6 +35,58 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ matrix.region }}
+
+      # -------------------------------------------------
+      - name: Login to Amazon ECR
+        id: ecr
+        run: |
+          REGISTRY=$(aws ecr describe-registry --query 'registryUri' --output text)
+          echo "registry=$REGISTRY" >> "$GITHUB_OUTPUT"
+          aws ecr get-login-password --region ${{ matrix.region }} \
+            | docker login --username AWS --password-stdin "$REGISTRY"
+
+      # -------------------------------------------------
+      - name: Create ECR repository if absent
+        run: |
+          aws ecr describe-repositories --repository-names "$ECR_REPO_NAME" \
+            || aws ecr create-repository --repository-name "$ECR_REPO_NAME"
+
+      # -------------------------------------------------
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # -------------------------------------------------
+      - name: Build & push image
+        env:
+          IMAGE: ${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPO_NAME }}
+        run: |
+          docker buildx build \
+            --platform linux/arm64 \
+            -t "$IMAGE:$GITHUB_SHA" \
+            -t "$IMAGE:latest" \
+            --push \
+            ./app
+
+      # -------------------------------------------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # -------------------------------------------------
+      - name: Create Terraform state bucket if absent
+        run: |
+          BUCKET="prospect-mailer-terraform-state"
+          if ! aws s3api head-bucket --bucket "$BUCKET" 2>/dev/null; then
+            aws s3api create-bucket \
+              --bucket "$BUCKET" \
+              --region ${{ matrix.region }} \
+              --create-bucket-configuration LocationConstraint=${{ matrix.region }}
+            aws s3api put-bucket-versioning \
+              --bucket "$BUCKET" \
+              --versioning-configuration Status=Enabled
+            aws s3api put-public-access-block \
+              --bucket "$BUCKET" \
+              --public-access-block-configuration BlockPublicAcls=true,BlockPublicPolicy=true,IgnorePublicAcls=true,RestrictPublicBuckets=true
+          fi
 
       # -------------------------------------------------
       - name: Terraform Init
@@ -82,66 +98,12 @@ jobs:
 
       # -------------------------------------------------
       - name: Terraform Plan
-        run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} plan -out=tfplan -var="aws_region=${{ matrix.region }}" -var-file=${GITHUB_WORKSPACE}/terraform/env/dev.tfvars
+        run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} plan -out=tfplan \
+          -var="aws_region=${{ matrix.region }}" \
+          -var="image_tag=$GITHUB_SHA" \
+          -var="zoho_pwd=${{ secrets.ZOHO_PWD }}" \
+          -var-file=${GITHUB_WORKSPACE}/terraform/env/dev.tfvars
 
       # -------------------------------------------------
       - name: Terraform Apply
         run: terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} apply -auto-approve tfplan
-
-      # -------------------------------------------------
-      - name: Extract EC2 Public IP
-        id: ec2_ip
-        run: |
-          IP=$(terraform -chdir=${GITHUB_WORKSPACE}/terraform/regions/${{ matrix.region }} output -raw instance_public_ip 2>/dev/null || true)
-          echo "instance_ip=$IP" >> "$GITHUB_OUTPUT"
-
-    outputs: # to use ec2_ip in next jobs
-      ec2_ip: ${{ steps.ec2_ip.outputs.instance_ip }}
-
-  # Job 3: Cloud environment configuration and application deployment with Ansible
-  Ansible:
-    needs: terraform
-    name: Configure Cloud environment (AWS EC2 instance) and deploy application
-    runs-on: ubuntu-latest
-    env:
-      ANSIBLE_HOST_KEY_CHECKING: "False" # only for tests
-    defaults:
-      run:
-        working-directory: ./ansible
-    steps:
-      # -------------------------------------------------
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # -------------------------------------------------
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-
-      # -------------------------------------------------
-      - name: Set up Ansible
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ansible sshpass
-
-      # -------------------------------------------------
-      - name: Write SSH key
-        run: echo "${{ secrets.AWS_SSH_KEY }}" > /tmp/aws_key.pem && chmod 400 /tmp/aws_key.pem
-
-      - name: Ensure .ssh exists
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-
-      - name: Add EC2 host key
-        run: ssh-keyscan -H ${{ needs.terraform.outputs.ec2_ip }}  >> ~/.ssh/known_hosts
-
-      # -------------------------------------------------
-      - name: Run Ansible
-        run: |
-          ansible-playbook -i "${{ needs.terraform.outputs.ec2_ip }} ," \
-            -u ubuntu \
-            --private-key /tmp/aws_key.pem \
-            playbook.yml \
-            -e "ansible_ssh_extra_args='-A'"

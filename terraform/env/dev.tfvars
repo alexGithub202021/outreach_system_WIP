@@ -1,8 +1,17 @@
-# terraform.tfvars
+# Non-secret defaults for the dev environment.
+# Only the Zoho SMTP password (zoho_pwd) is a real secret and is passed via
+# -var in CI from the ZOHO_PWD GitHub secret — it must NOT be committed here.
 
-ami_id            = "ami-01b9f1e7dc427266e"
-instance_type     = "t4g.small"
-key_name          = "ssh-key-1"
-security_group_id = "sg-08bf60be2d844a0c4"
-# subnet_id       = "subnet-0abc1234"  # Uncomment and set if needed
-instance_name     = "i1"
+s3_bucket_name = "prospect-mailer-app-data"
+ecr_repo_name  = "prospect-mailer"
+
+lambda_timeout = 120
+lambda_memory  = 256
+
+db_s3_key  = "mydata.db"
+csv_s3_key = "prospects.csv"
+
+# Non-secret SMTP settings.
+sender    = "modernization@steadypartner.online"
+smtp_host = "smtp.zoho.com"
+smtp_port = "465"

@@ -1,23 +1,23 @@
-# stage 1: create the go app executable binary
+# syntax=docker/dockerfile:1
+
+# ---- Build stage ----------------------------------------------------------
 FROM golang:1.26-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependencies and source code
-COPY go.mod ./
+COPY go.mod go.sum ./
 RUN go mod download
+
 COPY . .
 
-# Build a statically linked binary
-RUN CGO_ENABLED=0 GOOS=linux go build -o myapp .
+# CGO disabled (modernc.org/sqlite is pure Go) and cross-compiled for the
+# Lambda Graviton (arm64) runtime. The binary MUST be named "bootstrap" so
+# the provided.al2023 base image picks it up as the Lambda entrypoint.
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o bootstrap .
 
-# Stage 2: Final lightweight image
-FROM alpine:latest
+# ---- Final Lambda image ---------------------------------------------------
+FROM public.ecr.aws/lambda/provided:al2023
 
-# setup collection of valid certificates
-RUN apk add --no-cache ca-certificates
+COPY --from=builder /app/bootstrap ${LAMBDA_RUNTIME_DIR}/bootstrap
 
-# Copy the binary from the transient builder stage, that is discarded once the final image is built
-COPY --from=builder /app/myapp /myapp
-
-ENTRYPOINT ["/myapp"]
+ENTRYPOINT [ "/var/runtime/bootstrap" ]
