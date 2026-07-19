@@ -47,12 +47,6 @@ jobs:
             | docker login --username AWS --password-stdin "$REGISTRY"
 
       # -------------------------------------------------
-      - name: Create ECR repository if absent
-        run: |
-          aws ecr describe-repositories --repository-names "$ECR_REPO_NAME" \
-            || aws ecr create-repository --repository-name "$ECR_REPO_NAME"
-
-      # -------------------------------------------------
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 

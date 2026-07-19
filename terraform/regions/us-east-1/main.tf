@@ -6,6 +6,13 @@ data "aws_region" "current" {}
 # ---------------------------------------------------------------------------
 # ECR repository for the Lambda container image
 # ---------------------------------------------------------------------------
+# Import block adopts the repo if it already exists (e.g. created manually or
+# by a previous run), so apply is idempotent instead of failing on create.
+import {
+  to = aws_ecr_repository.app
+  id = var.ecr_repo_name
+}
+
 resource "aws_ecr_repository" "app" {
   name                 = var.ecr_repo_name
   image_tag_mutability = "MUTABLE"
