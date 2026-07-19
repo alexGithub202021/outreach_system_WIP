@@ -4,8 +4,6 @@ go 1.26.4
 
 // require github.com/sirupsen/logrus v1.9.4
 
-require github.com/lib/pq v1.12.3
-
 require github.com/joho/godotenv v1.5.1
 
 require (
@@ -13,7 +11,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.32.30
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.22.34
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.105.2
-	github.com/gorilla/websocket v1.5.3
 	modernc.org/sqlite v1.54.0
 )
 

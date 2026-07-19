@@ -77,10 +77,14 @@ jobs:
         run: |
           BUCKET="prospect-mailer-terraform-state"
           if ! aws s3api head-bucket --bucket "$BUCKET" 2>/dev/null; then
-            aws s3api create-bucket \
-              --bucket "$BUCKET" \
-              --region ${{ matrix.region }} \
-              --create-bucket-configuration LocationConstraint=${{ matrix.region }}
+            if [ "${{ matrix.region }}" = "us-east-1" ]; then
+              aws s3api create-bucket --bucket "$BUCKET" --region ${{ matrix.region }}
+            else
+              aws s3api create-bucket \
+                --bucket "$BUCKET" \
+                --region ${{ matrix.region }} \
+                --create-bucket-configuration LocationConstraint=${{ matrix.region }}
+            fi
             aws s3api put-bucket-versioning \
               --bucket "$BUCKET" \
               --versioning-configuration Status=Enabled
