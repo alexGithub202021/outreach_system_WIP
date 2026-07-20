@@ -117,6 +117,13 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 # ---------------------------------------------------------------------------
 # Lambda function (container image)
 # ---------------------------------------------------------------------------
+# Import block adopts the function if it already exists (created by a prior
+# run), so apply is idempotent instead of failing with AlreadyExists.
+import {
+  to = aws_lambda_function.app
+  id = var.ecr_repo_name
+}
+
 resource "aws_lambda_function" "app" {
   function_name = var.ecr_repo_name
   package_type  = "Image"
@@ -185,6 +192,23 @@ resource "aws_iam_role_policy" "scheduler_invoke" {
 # ---------------------------------------------------------------------------
 # Three EventBridge schedules (Tue 06:00→midnight, Wed, Thu)
 # ---------------------------------------------------------------------------
+# Import blocks adopt schedules if they already exist (created by a prior
+# run), so apply is idempotent instead of failing with AlreadyExists.
+import {
+  to = aws_scheduler_schedule.tue
+  id = "default/${var.ecr_repo_name}-tue"
+}
+
+import {
+  to = aws_scheduler_schedule.wed
+  id = "default/${var.ecr_repo_name}-wed"
+}
+
+import {
+  to = aws_scheduler_schedule.thu
+  id = "default/${var.ecr_repo_name}-thu"
+}
+
 resource "aws_scheduler_schedule" "tue" {
   name       = "${var.ecr_repo_name}-tue"
   group_name = "default"
