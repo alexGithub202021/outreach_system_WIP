@@ -130,7 +130,6 @@ resource "aws_lambda_function" "app" {
   image_uri     = "${aws_ecr_repository.app.repository_url}:${var.image_tag}"
 
   architectures                  = ["arm64"]
-  reserved_concurrent_executions = 1
   timeout                        = var.lambda_timeout
   memory_size                    = var.lambda_memory
   role                           = aws_iam_role.lambda.arn
