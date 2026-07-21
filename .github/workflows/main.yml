@@ -7,7 +7,7 @@ on:
 
     paths-ignore:
       - "README.md"
-      - "schemas/"
+      - "schemas/*"
 
 jobs:
   # Build the Lambda container image, push it to ECR, then provision
