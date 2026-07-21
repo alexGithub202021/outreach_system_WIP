@@ -16,7 +16,7 @@ SQLite/
 pgdata/
 redis/
 db_dump/
-prospects.csv
+/prospects.csv
 
 # Editor / tooling
 .vscode/

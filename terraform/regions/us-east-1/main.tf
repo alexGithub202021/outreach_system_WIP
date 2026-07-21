@@ -72,6 +72,25 @@ resource "aws_s3_bucket_versioning" "app" {
   }
 }
 
+# Seeds the prospects CSV into S3 on the very first apply only (header row
+# only — the seed file never contains real prospect data). After creation,
+# Terraform never touches this object again: real prospect data uploaded by
+# the app or manually is preserved, and any later edits to the seed file are
+# ignored by design. The SQLite DB is never managed by Terraform at all — the
+# app's EnsureSQLite (create-if-missing) is the sole authority over it, so
+# real DB content already in S3 is never overwritten either.
+resource "aws_s3_object" "csv_seed" {
+  bucket       = aws_s3_bucket.app.id
+  key          = var.csv_s3_key
+  source       = "${path.module}/seed/prospects.csv"
+  etag         = filemd5("${path.module}/seed/prospects.csv")
+  content_type = "text/csv"
+
+  lifecycle {
+    ignore_changes = [source, etag, content, content_type]
+  }
+}
+
 # ---------------------------------------------------------------------------
 # IAM role for the Lambda function
 # ---------------------------------------------------------------------------
