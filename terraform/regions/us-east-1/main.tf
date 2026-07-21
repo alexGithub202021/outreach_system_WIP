@@ -120,6 +120,12 @@ data "aws_iam_policy_document" "lambda_inline" {
     actions   = ["s3:GetObject", "s3:PutObject"]
     resources = ["${aws_s3_bucket.app.arn}/*"]
   }
+
+  statement {
+    sid       = "S3ListAppBucket"
+    actions   = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.app.arn]
+  }
 }
 
 resource "aws_iam_role_policy" "lambda_inline" {
