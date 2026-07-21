@@ -191,6 +191,11 @@ resource "aws_iam_role_policy" "scheduler_invoke" {
 # ---------------------------------------------------------------------------
 # Three EventBridge schedules (Tue 06:00→midnight, Wed, Thu)
 # ---------------------------------------------------------------------------
+import {
+  to = aws_scheduler_schedule.tue
+  id = "default/${var.ecr_repo_name}-tue"
+}
+
 resource "aws_scheduler_schedule" "tue" {
   name       = "${var.ecr_repo_name}-tue"
   group_name = "default"
@@ -212,6 +217,11 @@ resource "aws_scheduler_schedule" "tue" {
   }
 }
 
+import {
+  to = aws_scheduler_schedule.wed
+  id = "default/${var.ecr_repo_name}-wed"
+}
+
 resource "aws_scheduler_schedule" "wed" {
   name       = "${var.ecr_repo_name}-wed"
   group_name = "default"
@@ -231,6 +241,11 @@ resource "aws_scheduler_schedule" "wed" {
       maximum_retry_attempts = 0
     }
   }
+}
+
+import {
+  to = aws_scheduler_schedule.thu
+  id = "default/${var.ecr_repo_name}-thu"
 }
 
 resource "aws_scheduler_schedule" "thu" {
