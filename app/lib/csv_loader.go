@@ -41,7 +41,7 @@ func LoadProspectsFromCSV() error {
 
 	r := csv.NewReader(f)
 	r.Comma = ';'
-	r.LazyQuotes = true  // tolerates the triple-quoted time fields
+	r.LazyQuotes = true // tolerates the triple-quoted time fields
 	r.TrimLeadingSpace = true
 
 	records, err := r.ReadAll()
@@ -122,12 +122,12 @@ func LoadProspectsFromCSV() error {
 
 		// Deduplication check: skip if the email is already in the table.
 		var existing int
-		err := db.QueryRow(`SELECT COUNT(*) FROM prospects WHERE email = ?`, email).Scan(&existing)
+		err := db.QueryRow(`SELECT COUNT(*) FROM prospects WHERE email = ? AND sending_date = ? AND sending_time = ?`, email, sendingDate, sendingTime).Scan(&existing)
 		if err != nil {
 			return fmt.Errorf("LoadProspectsFromCSV: dedup check row %d: %w", rowNum+2, err)
 		}
 		if existing > 0 {
-			slog.Info("LoadProspectsFromCSV: duplicate skipped", "email", email)
+			slog.Info("LoadProspectsFromCSV: duplicate skipped", "email", email, "sending_date", sendingDate, "sending_time", sendingTime)
 			skipped++
 			continue
 		}

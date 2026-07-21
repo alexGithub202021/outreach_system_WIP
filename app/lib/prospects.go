@@ -69,16 +69,17 @@ func ProcessProspects() error {
 		SELECT id, name_p, email, gender, sending_date, sending_time
 		FROM   prospects
 		WHERE  status_p    = 0
-		  AND  sending_date <= ?`
-	//   AND  sending_time <= ?`
+		  AND  sending_date <= ?
+		  OR (sending_date = ? AND sending_time <= ?)`
 
 	slog.Info("ProcessProspects: executing query",
 		"query", query,
 		"param_sending_date", today,
+		"param_sending_date", today,
 		"param_sending_time", currentTime,
 	)
 
-	rows, err := db.Query(query, today, currentTime)
+	rows, err := db.Query(query, today, today, currentTime)
 	if err != nil {
 		return fmt.Errorf("ProcessProspects: query: %w", err)
 	}
