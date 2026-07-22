@@ -135,7 +135,7 @@ func LoadProspectsFromCSV() error {
 
 		_, err = db.Exec(
 			`INSERT INTO prospects (name_p, email, gender, tmz, sending_date, sending_time, status_p, company)
-			 VALUES (?, ?, ?, ?, ?, ?, ?)`,
+			 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
 			name, email, gender, tmz, sendingDate, sendingTime, statusP, company,
 		)
 		if err != nil {
