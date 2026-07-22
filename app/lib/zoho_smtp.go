@@ -29,7 +29,7 @@ func SendProspectMail(to, title, name string) error {
 
 Many engineering teams face bottlenecks where legacy debt slows down feature delivery and inflates Cloud costs.
 
-I am a Senior Software Engineer specializing in E2E system modernization and cloud automation. I help managers safely modernize complex legacy monoliths (especially into highly optimized, asynchronous Cloud native Go or Python/FastAPI architectures), potentially reducing deployment friction and cloud spend by 40-60%%, besides delivering precise, responsive and intuitive UI/UX.
+I am a Senior Software Engineer specializing in E2E system modernization and cloud automation. I help managers safely modernize complex legacy monoliths (especially into highly optimized, asynchronous Cloud native Go or Python/FastAPI architectures), potentially reducing deployment friction and cloud spend by 40-60%%, while delivering also precise, responsive and intuitive UI/UX.
 
 Because I own the complete lifecycle - from needs analysis and solution design to IaC (Terraform) and production monitoring - I operate as an autonomous execution unit without requiring daily management. I also leverage safe AI-augmented workflows to compress delivery timelines significantly.
 
