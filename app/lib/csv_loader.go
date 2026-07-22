@@ -84,7 +84,7 @@ func LoadProspectsFromCSV() error {
 		colIdx[strings.ToLower(strings.TrimSpace(h))] = i
 	}
 
-	required := []string{"gender", "name", "email", "tmz", "sending_date", "sending_time", "status"}
+	required := []string{"gender", "name", "email", "tmz", "sending_date", "sending_time", "status", "company"}
 	for _, col := range required {
 		if _, ok := colIdx[col]; !ok {
 			return fmt.Errorf("LoadProspectsFromCSV: missing column %q in CSV header", col)
@@ -106,6 +106,7 @@ func LoadProspectsFromCSV() error {
 		sendingDate := clean(row[colIdx["sending_date"]])
 		sendingTime := normaliseTime(clean(row[colIdx["sending_time"]]))
 		statusRaw := clean(row[colIdx["status"]])
+		company := clean(row[colIdx["company"]])
 
 		// Skip rows with no email (cannot deduplicate or contact).
 		if email == "" {
@@ -133,9 +134,9 @@ func LoadProspectsFromCSV() error {
 		}
 
 		_, err = db.Exec(
-			`INSERT INTO prospects (name_p, email, gender, tmz, sending_date, sending_time, status_p)
+			`INSERT INTO prospects (name_p, email, gender, tmz, sending_date, sending_time, status_p, company)
 			 VALUES (?, ?, ?, ?, ?, ?, ?)`,
-			name, email, gender, tmz, sendingDate, sendingTime, statusP,
+			name, email, gender, tmz, sendingDate, sendingTime, statusP, company,
 		)
 		if err != nil {
 			return fmt.Errorf("LoadProspectsFromCSV: insert row %d (%s): %w", rowNum+2, email, err)

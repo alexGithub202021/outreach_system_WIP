@@ -2,6 +2,7 @@ package lib
 
 import (
 	"log/slog"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -18,4 +19,11 @@ func LoadEnv() bool {
 		}
 	}
 	return true
+}
+
+func CapitalizeFirst(s string) string {
+	if s == "" {
+		return ""
+	}
+	return strings.ToUpper(s[:1]) + s[1:]
 }

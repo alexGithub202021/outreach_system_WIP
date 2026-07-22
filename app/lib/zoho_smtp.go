@@ -14,7 +14,7 @@ import (
 // title  – "Mr." or "Ms." derived from the prospect's gender.
 // name   – prospect name already uppercased by the caller.
 // to     – prospect email address.
-func SendProspectMail(to, title, name string) error {
+func SendProspectMail(to, title, name string, company string) error {
 
 	slog.Info("SendProspectMail: begin", "to", to)
 
@@ -23,28 +23,29 @@ func SendProspectMail(to, title, name string) error {
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := os.Getenv("SMTP_PORT")
 
-	subject := "Remote Senior Engineer for immediate E2E backend / infra / fullstack sprints"
+	// subject := "Remote Senior Engineer for immediate E2E backend / infra / fullstack sprints"
+	subject := fmt.Sprintf(`Modernizing %s's backend`, company)
 
-	body := fmt.Sprintf(`Hi %s %s,
+	body := fmt.Sprintf(`%s,
 
 Many engineering teams face bottlenecks where legacy debt slows down feature delivery and inflates Cloud costs.
 
-I am a Senior Software Engineer specializing in E2E system modernization and cloud automation. I help managers safely modernize complex legacy monoliths (especially into highly optimized, asynchronous Cloud native Go or Python/FastAPI architectures), potentially reducing deployment friction and cloud spend by 40-60%%, while delivering also precise, responsive and intuitive UI/UX.
+I am a Senior Software Engineer specializing in end-to-end system modernization. I help teams and managers safely modernize complex legacy monoliths (especially into highly optimized cloud native Go or Python/FastAPI architectures), potentially reducing deployment friction and cloud spend by 40-60%%, while maintaining production stability and operational simplicity.
 
-Because I own the complete lifecycle - from needs analysis and solution design to IaC (Terraform) and production monitoring - I operate as an autonomous execution unit without requiring daily management. I also leverage safe AI-augmented workflows to compress delivery timelines significantly.
+Because I handle the entire pipeline and lifecycle - from needs analysis and solution design to IaC (Terraform) and production monitoring - I operate as an autonomous execution unit without requiring daily management overhead. I also leverage safe AI-augmented workflows to compress timelines by 30-40%%.
 
 I operate under an independent B2B contractor framework aligned with your working hours (using standard W-8BEN compliance for seamless US invoicing), meaning zero payroll or HR overhead for your company.
 
-If you need an extra senior engineer to clear legacy bottlenecks or accelerate cloud migrations, let's connect.
+If you need an extra senior capacity to clear legacy bottlenecks or accelerate cloud migrations, let's connect.
 
 Best regards,
 
 Alexandre NGUYEN
+Senior Software Engineer
 
 Email: modernization@steadypartner.online
-Github: github.com/alexGithub202021
-LinkedIn: https://www.linkedin.com/in/alexandre-nguyen-senior-swe`,
-		title, name)
+GitHub: github.com/alexGithub202021
+LinkedIn: https://www.linkedin.com/in/alexandre-nguyen-senior-swe`, name)
 
 	// Build raw MIME message.
 	header := map[string]string{

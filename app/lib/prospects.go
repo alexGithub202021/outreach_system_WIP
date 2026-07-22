@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
-	"strings"
 	"time"
 
 	_ "modernc.org/sqlite"
@@ -19,6 +18,7 @@ type Prospect struct {
 	Gender      string // gender column: "W" = female, anything else = male
 	SendingDate string // stored as "YYYY-MM-DD"
 	SendingTime string // stored as "HH:MM:SS"
+	Company     string // company column
 }
 
 // ProcessProspects opens the SQLite database, reads all prospects whose
@@ -66,7 +66,7 @@ func ProcessProspects() error {
 	// whose sending_date is earlier,
 	// OR sending_date is equal AND whose sending_time is now or earlier.
 	query := `
-		SELECT id, name_p, email, gender, sending_date, sending_time
+		SELECT id, name_p, email, gender, sending_date, sending_time, company
 		FROM   prospects
 		WHERE  status_p = 0
 		  AND  (sending_date < ? OR (sending_date = ? AND sending_time <= ?))`
@@ -91,7 +91,7 @@ func ProcessProspects() error {
 	for rows.Next() {
 		var p Prospect
 
-		if err := rows.Scan(&p.ID, &p.Name, &p.Email, &p.Gender, &p.SendingDate, &p.SendingTime); err != nil {
+		if err := rows.Scan(&p.ID, &p.Name, &p.Email, &p.Gender, &p.SendingDate, &p.SendingTime, &p.Company); err != nil {
 			return fmt.Errorf("ProcessProspects: scan row: %w", err)
 		}
 
@@ -101,6 +101,7 @@ func ProcessProspects() error {
 			"email", p.Email,
 			"sending_date", p.SendingDate,
 			"sending_time", p.SendingTime,
+			"company", p.Company,
 		)
 
 		// Derive salutation from gender: "W" → Ms., anything else → Mr.
@@ -110,7 +111,7 @@ func ProcessProspects() error {
 		}
 
 		// Send the prospecting email.
-		if err := SendProspectMail(p.Email, title, strings.ToUpper(p.Name)); err != nil {
+		if err := SendProspectMail(p.Email, title, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)); err != nil {
 			slog.Error("ProcessProspects: send failed",
 				"id", p.ID,
 				"email", p.Email,
