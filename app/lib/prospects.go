@@ -63,14 +63,13 @@ func ProcessProspects() error {
 	slog.Info("ProcessProspects: using timezone", "TZ", loc.String(), "today", today, "currentTime", currentTime)
 
 	// Select prospects that are pending (status_p = 0),
-	// whose sending_date is today or earlier,
-	// AND whose sending_time is now or earlier.
+	// whose sending_date is earlier,
+	// OR sending_date is equal AND whose sending_time is now or earlier.
 	query := `
 		SELECT id, name_p, email, gender, sending_date, sending_time
 		FROM   prospects
-		WHERE  status_p    = 0
-		  AND  sending_date <= ?
-		  OR (sending_date = ? AND sending_time <= ?)`
+		WHERE  status_p = 0
+		  AND  (sending_date < ? OR (sending_date = ? AND sending_time <= ?))`
 
 	slog.Info("ProcessProspects: executing query",
 		"query", query,
