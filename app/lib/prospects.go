@@ -104,14 +104,8 @@ func ProcessProspects() error {
 			"company", p.Company,
 		)
 
-		// Derive salutation from gender: "W" → Ms., anything else → Mr.
-		title := "Mr."
-		if p.Gender == "W" {
-			title = "Ms."
-		}
-
 		// Send the prospecting email.
-		if err := SendProspectMail(p.Email, title, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)); err != nil {
+		if !CallResendApi(p.Email, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)) {
 			slog.Error("ProcessProspects: send failed",
 				"id", p.ID,
 				"email", p.Email,

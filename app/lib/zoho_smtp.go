@@ -6,14 +6,14 @@ import (
 	"log/slog"
 	"net/smtp"
 	"os"
-	"time"
 	_ "time/tzdata"
 )
 
-// SendProspectMail sends the prospecting email to a single recipient.
+// SendProspectMail sends the prospecting email to a SINGLE recipient.
 // title  – "Mr." or "Ms." derived from the prospect's gender.
 // name   – prospect name already uppercased by the caller.
 // to     – prospect email address.
+// company - prospect company
 func SendProspectMail(to, title, name string, company string) error {
 
 	slog.Info("SendProspectMail: begin", "to", to)
@@ -103,79 +103,79 @@ LinkedIn: https://www.linkedin.com/in/alexandre-nguyen-senior-swe`, name)
 
 // SendMail is kept for backward compatibility. It is the original
 // hard-coded scheduled-mail call used during early testing.
-func SendMail() {
+// func SendMail() {
 
-	slog.Info("begin SendMail")
+// 	slog.Info("begin SendMail")
 
-	nyLoc, err := time.LoadLocation("Asia/Ho_Chi_Minh")
-	if err != nil {
-		slog.Error("Failed to load Ho_Chi_Minh location", slog.String("error msg", err.Error()))
-	}
-	targetTime := time.Date(2026, 7, 15, 21, 45, 0, 0, nyLoc)
+// 	nyLoc, err := time.LoadLocation("Asia/Ho_Chi_Minh")
+// 	if err != nil {
+// 		slog.Error("Failed to load Ho_Chi_Minh location", slog.String("error msg", err.Error()))
+// 	}
+// 	targetTime := time.Date(2026, 7, 15, 21, 45, 0, 0, nyLoc)
 
-	singaporeLoc, err := time.LoadLocation("Asia/Singapore")
-	if err != nil {
-		slog.Error("Failed to load singapore location", slog.String("error msg", err.Error()))
-	}
-	convertedTime := targetTime.In(singaporeLoc)
-	scheduledString := convertedTime.Format("2006-01-02 15:04:05")
+// 	singaporeLoc, err := time.LoadLocation("Asia/Singapore")
+// 	if err != nil {
+// 		slog.Error("Failed to load singapore location", slog.String("error msg", err.Error()))
+// 	}
+// 	convertedTime := targetTime.In(singaporeLoc)
+// 	scheduledString := convertedTime.Format("2006-01-02 15:04:05")
 
-	from := os.Getenv("SENDER")
-	password := os.Getenv("ZOHO_PWD")
-	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := os.Getenv("SMTP_PORT")
-	to := "alex@steadypartner.online"
+// 	from := os.Getenv("SENDER")
+// 	password := os.Getenv("ZOHO_PWD")
+// 	smtpHost := os.Getenv("SMTP_HOST")
+// 	smtpPort := os.Getenv("SMTP_PORT")
+// 	to := "alex@steadypartner.online"
 
-	header := make(map[string]string)
-	header["From"] = from
-	header["To"] = to
-	header["Subject"] = "test emails scheduling"
-	header["X-DELIVER-AT"] = scheduledString
-	header["MIME-Version"] = "1.0"
-	header["Content-Type"] = "text/plain; charset=\"utf-8\""
+// 	header := make(map[string]string)
+// 	header["From"] = from
+// 	header["To"] = to
+// 	header["Subject"] = "test emails scheduling"
+// 	header["X-DELIVER-AT"] = scheduledString
+// 	header["MIME-Version"] = "1.0"
+// 	header["Content-Type"] = "text/plain; charset=\"utf-8\""
 
-	message := ""
-	for k, v := range header {
-		message += fmt.Sprintf("%s: %s\r\n", k, v)
-	}
-	message += "\r\nScheduled body..."
+// 	message := ""
+// 	for k, v := range header {
+// 		message += fmt.Sprintf("%s: %s\r\n", k, v)
+// 	}
+// 	message += "\r\nScheduled body..."
 
-	conn, err := tls.Dial("tcp", smtpHost+":"+smtpPort, &tls.Config{ServerName: smtpHost})
-	if err != nil {
-		slog.Error("TLS dial failed", slog.String("error msg", err.Error()))
-	}
-	defer conn.Close()
+// 	conn, err := tls.Dial("tcp", smtpHost+":"+smtpPort, &tls.Config{ServerName: smtpHost})
+// 	if err != nil {
+// 		slog.Error("TLS dial failed", slog.String("error msg", err.Error()))
+// 	}
+// 	defer conn.Close()
 
-	client, err := smtp.NewClient(conn, smtpHost)
-	if err != nil {
-		slog.Error("SMTP client creation failed", slog.String("error msg", err.Error()))
-	}
-	defer client.Quit()
+// 	client, err := smtp.NewClient(conn, smtpHost)
+// 	if err != nil {
+// 		slog.Error("SMTP client creation failed", slog.String("error msg", err.Error()))
+// 	}
+// 	defer client.Quit()
 
-	auth := smtp.PlainAuth("", from, password, smtpHost)
-	if err = client.Auth(auth); err != nil {
-		slog.Error("Authentication failed", slog.String("error msg", err.Error()))
-	}
+// 	auth := smtp.PlainAuth("", from, password, smtpHost)
+// 	if err = client.Auth(auth); err != nil {
+// 		slog.Error("Authentication failed", slog.String("error msg", err.Error()))
+// 	}
 
-	if err = client.Mail(from); err != nil {
-		slog.Error("MAIL command failed", slog.String("error msg", err.Error()))
-	}
-	if err = client.Rcpt(to); err != nil {
-		slog.Error("RCPT command failed", slog.String("error msg", err.Error()))
-	}
+// 	if err = client.Mail(from); err != nil {
+// 		slog.Error("MAIL command failed", slog.String("error msg", err.Error()))
+// 	}
+// 	if err = client.Rcpt(to); err != nil {
+// 		slog.Error("RCPT command failed", slog.String("error msg", err.Error()))
+// 	}
 
-	w, err := client.Data()
-	if err != nil {
-		slog.Error("DATA command failed", slog.String("error msg", err.Error()))
-	}
-	_, err = w.Write([]byte(message))
-	if err != nil {
-		slog.Error("Failed to write body", slog.String("error msg", err.Error()))
-	}
-	err = w.Close()
-	if err != nil {
-		slog.Error("Failed to close data writer", slog.String("error msg", err.Error()))
-	}
+// 	w, err := client.Data()
+// 	if err != nil {
+// 		slog.Error("DATA command failed", slog.String("error msg", err.Error()))
+// 	}
+// 	_, err = w.Write([]byte(message))
+// 	if err != nil {
+// 		slog.Error("Failed to write body", slog.String("error msg", err.Error()))
+// 	}
+// 	err = w.Close()
+// 	if err != nil {
+// 		slog.Error("Failed to close data writer", slog.String("error msg", err.Error()))
+// 	}
 
-	slog.Info("Scheduled email configured and sent to Zoho successfully.")
-}
+// 	slog.Info("Scheduled email configured and sent to Zoho successfully.")
+// }

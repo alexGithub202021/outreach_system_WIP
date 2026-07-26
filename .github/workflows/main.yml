@@ -113,6 +113,7 @@ jobs:
             -var="aws_region=${{ matrix.region }}" \
             -var="image_tag=$GITHUB_SHA" \
             -var="zoho_pwd=${{ secrets.ZOHO_PWD }}" \
+            -var="resend_api_key=${{ secrets.RESEND_API_KEY }}" \
             -var-file=${GITHUB_WORKSPACE}/terraform/env/dev.tfvars
 
       # -------------------------------------------------

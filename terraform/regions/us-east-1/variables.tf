@@ -65,3 +65,15 @@ variable "smtp_port" {
   type        = string
   default     = "465"
 }
+
+variable "resend_api_url" {
+  description = "resend POST api url (non-secret; default in dev.tfvars)"
+  type        = string
+  default     = "https://api.resend.com/emails"
+}
+
+variable "resend_api_key" {
+  description = "resend API KEY (SECRET — supplied via GitHub secret / -var)"
+  type        = string
+  sensitive   = true
+}

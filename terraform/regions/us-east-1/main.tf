@@ -169,6 +169,8 @@ resource "aws_lambda_function" "app" {
       ZOHO_PWD   = var.zoho_pwd
       SMTP_HOST  = var.smtp_host
       SMTP_PORT  = var.smtp_port
+      RESEND_API_URL = var.resend_api_url
+      RESEND_API_KEY = var.resend_api_key
     }
   }
 }
