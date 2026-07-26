@@ -77,3 +77,9 @@ variable "resend_api_key" {
   type        = string
   sensitive   = true
 }
+
+variable "new_sender" {
+  description = "SMTP new sender address (non-secret; default in dev.tfvars)"
+  type        = string
+  default     = "modernization@steadypartner.co"
+}

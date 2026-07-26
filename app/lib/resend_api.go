@@ -76,7 +76,7 @@ func getRequestBody(to string, company string, name string) *bytes.Buffer {
 
 	// 1. Define the input data
 	recipientTo := to // <--- YOU MUST DEFINE THIS VARIABLE
-	sender := os.Getenv("SENDER")
+	sender := os.Getenv("NEW_SENDER")
 	subject := fmt.Sprintf(`Modernizing %s's backend`, company)
 
 	msgBody := fmt.Sprintf(`%s,

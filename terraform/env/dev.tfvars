@@ -16,5 +16,5 @@ sender    = "modernization@steadypartner.online"
 smtp_host = "smtp.zoho.com"
 smtp_port = "465"
 
-sender    = "modernization@steadypartner.co"
 resend_api_url = "https://api.resend.com/emails"
+new_sender     = "modernization@steadypartner.co"

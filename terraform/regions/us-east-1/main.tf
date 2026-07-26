@@ -171,6 +171,7 @@ resource "aws_lambda_function" "app" {
       SMTP_PORT  = var.smtp_port
       RESEND_API_URL = var.resend_api_url
       RESEND_API_KEY = var.resend_api_key
+      NEW_SENDER     = var.new_sender
     }
   }
 }
