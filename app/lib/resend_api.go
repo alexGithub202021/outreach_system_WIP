@@ -50,7 +50,7 @@ func CallResendApi(to string, name string, company string) bool {
 	defer resp.Body.Close()
 
 	// 8. Print the response status code
-	slog.Info("Resend API Response", "Status Code", resp.StatusCode)
+	slog.Info("CallResendApi", "API Response Status Code", resp.StatusCode)
 
 	// 9. Read and print the response body
 	var apiResponse map[string]interface{}
@@ -61,8 +61,8 @@ func CallResendApi(to string, name string, company string) bool {
 			slog.Error("Error parsing response", slog.String("error msg", err.Error()))
 			return false
 		}
-		slog.Info("Resend API Response", "message", apiResponse)
-		slog.Info("email sent to:",
+		slog.Info("CallResendApi", "Resend API Response", apiResponse)
+		slog.Info("CallResendApi > email sent to:",
 			"prospect name", name,
 			"prospect company", company,
 		)

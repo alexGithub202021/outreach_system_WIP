@@ -35,14 +35,14 @@ func ProcessProspects() error {
 
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
-		return fmt.Errorf("ProcessProspects: open db %q: %w", dbPath, err)
+		return fmt.Errorf("ProcessProspects -> open db %q: %w", dbPath, err)
 	}
 	defer db.Close()
 
 	if err := db.Ping(); err != nil {
-		return fmt.Errorf("ProcessProspects: ping db %q: %w", dbPath, err)
+		return fmt.Errorf("ProcessProspects -> ping db %q: %w", dbPath, err)
 	}
-	slog.Info("ProcessProspects: SQLite connected", "path", dbPath)
+	slog.Info("ProcessProspects -> SQLite connected", "path", dbPath)
 
 	// Load the timezone from the TZ env var (set in docker-compose).
 	// This ensures time.Now() reflects the timezone where the data was recorded,
@@ -53,14 +53,14 @@ func ProcessProspects() error {
 	}
 	loc, err := time.LoadLocation(tzName)
 	if err != nil {
-		slog.Warn("ProcessProspects: unknown TZ, falling back to UTC", "TZ", tzName, "err", err)
+		slog.Warn("ProcessProspects -> unknown TZ, falling back to UTC", "TZ", tzName, "err", err)
 		loc = time.UTC
 	}
 
 	now := time.Now().In(loc)
 	today := now.Format("2006-01-02")     // "YYYY-MM-DD"
 	currentTime := now.Format("15:04:05") // "HH:MM:SS"
-	slog.Info("ProcessProspects: using timezone", "TZ", loc.String(), "today", today, "currentTime", currentTime)
+	slog.Info("ProcessProspects -> using timezone", "TZ", loc.String(), "today", today, "currentTime", currentTime)
 
 	// Select prospects that are pending (status_p = 0),
 	// whose sending_date is earlier,
@@ -71,7 +71,7 @@ func ProcessProspects() error {
 		WHERE  status_p = 0
 		  AND  (sending_date < ? OR (sending_date = ? AND sending_time <= ?))`
 
-	slog.Info("ProcessProspects: filtering prospects",
+	slog.Info("ProcessProspects -> filtering prospects",
 		"filtering query", query,
 		"param_sending_date", today,
 		"param_sending_date", today,
@@ -80,7 +80,7 @@ func ProcessProspects() error {
 
 	rows, err := db.Query(query, today, today, currentTime)
 	if err != nil {
-		return fmt.Errorf("ProcessProspects: query: %w", err)
+		return fmt.Errorf("ProcessProspects -> query: %w", err)
 	}
 	defer rows.Close()
 
@@ -92,10 +92,10 @@ func ProcessProspects() error {
 		var p Prospect
 
 		if err := rows.Scan(&p.ID, &p.Name, &p.Email, &p.Gender, &p.SendingDate, &p.SendingTime, &p.Company); err != nil {
-			return fmt.Errorf("ProcessProspects: scan row: %w", err)
+			return fmt.Errorf("ProcessProspects -> scan row: %w", err)
 		}
 
-		slog.Info("Prospect ok for sending email: ",
+		slog.Info("ProcessProspects -> sending email to: ",
 			"name", p.Name,
 			"email", p.Email,
 			"company", p.Company,
@@ -106,7 +106,7 @@ func ProcessProspects() error {
 
 		// Send the prospecting email.
 		if !CallResendApi(p.Email, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)) {
-			slog.Error("ProcessProspects: email sending failed",
+			slog.Error("ProcessProspects -> email sending failed",
 				"id", p.ID,
 				"email", p.Email,
 				"err", err,
@@ -122,13 +122,13 @@ func ProcessProspects() error {
 	}
 
 	if err := rows.Err(); err != nil {
-		return fmt.Errorf("ProcessProspects: rows iteration: %w", err)
+		return fmt.Errorf("ProcessProspects -> rows iteration: %w", err)
 	}
 
 	// Mark as sent so the prospect is never emailed again.
 	updateProspectsStatus(db, prospectIds)
 
-	slog.Info("ProcessProspects: done", "matched", count)
+	slog.Info("ProcessProspects -> done", "number of prospects processed:", count)
 	return nil
 }
 
@@ -138,20 +138,20 @@ func updateProspectsStatus(db *sql.DB, prospects []int) {
 
 		query := `UPDATE prospects SET status_p = 1 WHERE id = ?`
 
-		slog.Info("ProcessProspects: update query",
+		slog.Info("ProcessProspects -> update query",
 			"query", query,
 			"prospect ID", prospect,
 		)
 
 		_, err := db.Query(query, prospect)
 		if err != nil {
-			slog.Error("ProcessProspects: failed to update status_p",
-				"id", prospect,
+			slog.Error("ProcessProspects -> failed to update status_p for:",
+				"prospect id", prospect,
 				"err", err,
 			)
 		}
 
-		slog.Info("SendProspectMail: update status successfully", "to prospect ID: ", prospect)
+		slog.Info("updateProspectsStatus -> successful", "prospect ID: ", prospect)
 	}
 
 }
