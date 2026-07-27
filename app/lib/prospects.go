@@ -71,8 +71,8 @@ func ProcessProspects() error {
 		WHERE  status_p = 0
 		  AND  (sending_date < ? OR (sending_date = ? AND sending_time <= ?))`
 
-	slog.Info("ProcessProspects: executing query",
-		"query", query,
+	slog.Info("ProcessProspects: filtering prospects",
+		"filtering query", query,
 		"param_sending_date", today,
 		"param_sending_date", today,
 		"param_sending_time", currentTime,
@@ -95,18 +95,18 @@ func ProcessProspects() error {
 			return fmt.Errorf("ProcessProspects: scan row: %w", err)
 		}
 
-		slog.Info("ok",
-			"id", p.ID,
+		slog.Info("Prospect ok for sending email: ",
 			"name", p.Name,
 			"email", p.Email,
-			"sending_date", p.SendingDate,
-			"sending_time", p.SendingTime,
 			"company", p.Company,
+			"date to send", p.SendingDate,
+			"time to send", p.SendingTime,
+			"id", p.ID,
 		)
 
 		// Send the prospecting email.
 		if !CallResendApi(p.Email, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)) {
-			slog.Error("ProcessProspects: send failed",
+			slog.Error("ProcessProspects: email sending failed",
 				"id", p.ID,
 				"email", p.Email,
 				"err", err,
