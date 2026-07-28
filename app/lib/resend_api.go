@@ -81,24 +81,24 @@ func getRequestBody(to string, company string, name string) *bytes.Buffer {
 	// 1. Define the input data
 	recipientTo := to // <--- YOU MUST DEFINE THIS VARIABLE
 	sender := os.Getenv("NEW_SENDER")
-	subject := fmt.Sprintf(`Modernizing %s's backend`, company)
+	subject := fmt.Sprintf(`quick question re: Modernizing %s's backend`, company)
 
 	msgBody := fmt.Sprintf(`%s,
 
-Many engineering teams face bottlenecks where legacy debt slows down feature delivery and inflates Cloud costs.
+Many engineering teams face bottlenecks where legacy debt slows down feature delivery and inflates cloud costs.
 
-I am a Senior Software Engineer specializing in end-to-end system modernization. I help teams and managers safely modernize complex legacy monoliths (especially into highly optimized cloud native Go or Python/FastAPI architectures), potentially reducing deployment friction and cloud spend by 40-60%%, while maintaining production stability and operational simplicity.
+I'm a Senior Software Engineer specializing in end-to-end legacy modernization, refactoring monoliths into optimized cloud-native architectures, migrating to Go / FastAPI + Terraform when needed.
+I help teams clear backend bottlenecks, reduce cloud spend, and compress delivery timelines without adding management overhead.
 
-Because I handle the entire pipeline and lifecycle - from needs analysis and solution design to IaC (Terraform) and production monitoring - I operate as an autonomous execution unit without requiring daily management overhead. I also leverage safe AI-augmented workflows to compress timelines by 30-40%%.
+Available for an immediate start on a 3–6 month engagement. I operate as an autonomous B2B contractor, fully aligned with your working hours and with zero HR friction.
 
-I operate under an independent B2B contractor framework aligned with your working hours (using standard W-8BEN compliance for seamless US invoicing), meaning zero payroll or HR overhead for your company.
-
-If you need an extra senior capacity to clear legacy bottlenecks or accelerate cloud migrations, let's connect.
+Do you have 10 minutes this week to discuss if I can help clear one of your current bottlenecks?
 
 Best regards,
 
 Alexandre NGUYEN
-Senior Software Engineer
+Senior Software Engineer & Systems Architect
+(US W-8BEN compliant / EU timezone-aligned)
 
 Email: modernization@steadypartner.co
 GitHub: github.com/alexGithub202021
