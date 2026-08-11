@@ -128,7 +128,7 @@ func ProcessProspects() error {
 	// Mark as sent so the prospect is never emailed again.
 	updateProspectsStatus(db, prospectIds)
 
-	slog.Info("ProcessProspects -> done", "number of prospects processed:", count)
+	slog.Info("ProcessProspects -> done", "number of emails sent:", count)
 	return nil
 }
 

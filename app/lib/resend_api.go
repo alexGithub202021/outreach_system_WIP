@@ -39,6 +39,8 @@ func CallResendApi(to string, name string, company string) bool {
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", api_key)
+	req.Header.Set("List-Unsubscribe", "<mailto:unsubscribe@steadypartner.co?subject=unsubscribe>, <https://steadypartner.co/unsubscribe>")
+	req.Header.Set("List-Unsubscribe-Post", "List-Unsubscribe=One-Click")
 
 	// 7. Execute the request
 	client := &http.Client{}
