@@ -106,7 +106,7 @@ func ProcessProspects() error {
 
 		// todo -> add sleep, tamper emails sending -> avoid being flagged by spam filters
 
-		sleep(30)
+		// sleep(30)
 
 		// Send the prospecting email.
 		if !CallResendApi(p.Email, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)) {
