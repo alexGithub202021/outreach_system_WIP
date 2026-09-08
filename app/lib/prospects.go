@@ -104,6 +104,10 @@ func ProcessProspects() error {
 			"id", p.ID,
 		)
 
+		// todo -> add sleep, tamper emails sending -> avoid being flagged by spam filters
+
+		sleep(30)
+
 		// Send the prospecting email.
 		if !CallResendApi(p.Email, CapitalizeFirst(p.Name), CapitalizeFirst(p.Company)) {
 			slog.Error("ProcessProspects -> email sending failed",
@@ -154,4 +158,12 @@ func updateProspectsStatus(db *sql.DB, prospects []int) {
 		slog.Info("updateProspectsStatus -> successful", "prospect ID: ", prospect)
 	}
 
+}
+
+func sleep(dur int) {
+	duration := time.Duration(dur)
+
+	fmt.Println("Pause...")
+	time.Sleep(duration * time.Second) // Pause for 5 seconds
+	fmt.Println("Resuming...")
 }
