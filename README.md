@@ -22,3 +22,8 @@ Automated outreach system built on Go, SQLite, Docker, deployed on AWS using git
   - Scheduler: EventBridge Scheduler
   - Observability: Cloudwatch
 
+
+<!-- sendings mainly capped by the resend / gmail API 
+     approx monthly cost for hundreds sendings per week < $1 
+-->
+
